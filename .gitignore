@@ -1,0 +1,15 @@
+# environment variables
+.env
+
+# python virtual environment
+.venv
+
+# pycache
+*.pyc
+__pycache__/
+
+# metadata in macOS
+.DS_Store
+
+# sqlite data
+db.sqlite3

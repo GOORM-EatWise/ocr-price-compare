@@ -20,7 +20,8 @@ class DanawaSpider(scrapy.Spider):
         self.parser = "lxml"  # Fast HTML parser
         
         self.text_clean_pattern = re.compile(r'\s+') 
-        self.required_nutrients = ['탄수화물', '당류', '단백질', '지방']
+        self.required_nutrients = ['단백질']
+        # self.required_nutrients = ['탄수화물', '당류', '단백질', '지방']
 
 
     @classmethod

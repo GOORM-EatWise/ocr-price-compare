@@ -27,7 +27,7 @@ class NutrientExtractionPipeline:
     """Converts aggregated nutrition info into separate fields"""
     def __init__(self):
         self.nutrient_patterns = {
-            'per_serving': re.compile(r'(?:1회\s*제공량|제공량)[:\s]*([0-9,]+(?:\.[0-9]+)?)\s*(g|ml)'),
+            'per_serving': re.compile(r'(?:1회\s*제공량|제공량|표시기준분량|표시기준량)[:\s]*([0-9,]+(?:\.[0-9]+)?)\s*(g|ml)'),
             'kcal': re.compile(r'열량[:\s]*([0-9,]+(?:\.[0-9]+)?)\s*kcal'),
             'carb': re.compile(r'탄수화물[:\s]*([0-9,]+(?:\.[0-9]+)?)'),
             'sugar': re.compile(r'당류[:\s]*([0-9,]+(?:\.[0-9]+)?)'),

@@ -1,43 +1,110 @@
-appdirs==1.4.4
-attrs @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_93pjmt0git/croot/attrs_1734533120523/work
-Automat @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_ddy0059olt/croot/automat_1743532570194/work
-bcrypt @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_66phductoz/croot/bcrypt_1747402781009/work
-beautifulsoup4 @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_94rx5n7wo9/croot/beautifulsoup4-split_1718029832430/work
-Brotli @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_f7i0oxypt6/croot/brotli-split_1736182464088/work
-certifi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_50bk79gkw_/croot/certifi_1745939223061/work/certifi
-cffi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_e4xd9yd9i2/croot/cffi_1736182819442/work
-charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
-constantly @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_efw7euxpjs/croot/constantly_1703165606144/work
-cryptography @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_fdxcx92j10/croot/cryptography_1740577852661/work
-cssselect @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_47oh46v5h0/croot/cssselect_1707339886455/work
-defusedxml @ file:///tmp/build/80754af9/defusedxml_1615228127516/work
-filelock @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_f6dmuewahq/croot/filelock_1744281400993/work
-hyperlink @ file:///tmp/build/80754af9/hyperlink_1610130746837/work
-idna @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_a12xpo84t2/croot/idna_1714398852854/work
-incremental @ file:///croot/incremental_1743512672142/work
-itemadapter @ file:///tmp/build/80754af9/itemadapter_1626442940632/work
-itemloaders @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_7ey3gdivap/croot/itemloaders_1743525753900/work
-jmespath @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_369vjbb695/croot/jmespath_1700144575847/work
-lxml @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_1cc0pw19wu/croot/lxml_1737040416995/work
-packaging @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_a6_qk3qyg7/croot/packaging_1734472142254/work
-parsel @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_da55frlnfu/croot/parsel_1707503460023/work
-Protego @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_417x0vb4sd/croot/protego_1746474581924/work
-pyasn1 @ file:///Users/ktietz/demo/mc3/conda-bld/pyasn1_1629708007385/work
-pyasn1-modules==0.2.8
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-PyDispatcher @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_13nh1jwrtr/croot/pydispatcher_1750159269550/work
-pyOpenSSL @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_fc2tw3ggkp/croot/pyopenssl_1741343830893/work
-PySocks @ file:///Users/ktietz/Code/oss/ci_pkgs/pysocks_1626781349491/work
-queuelib @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_927ughhs8g/croot/queuelib_1696950296942/work
-requests @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_6fxef5l5oe/croot/requests_1750426350797/work
-requests-file @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_bfbabejyv2/croot/requests-file_1749719739174/work
-Scrapy @ file:///home/conda/feedstock_root/build_artifacts/scrapy_1749469193420/work
-service-identity @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_bcsu3iimeq/croot/service_identity_1749714989457/work
-soupsieve @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_9798xzs_03/croot/soupsieve_1696347567192/work
-tldextract @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_86f1bw02kg/croot/tldextract_1723064389239/work
-tomli @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_d0e5ffbf-5cf1-45be-8693-c5dff8108a2awhthtjlq/croots/recipe/tomli_1657175508477/work
-Twisted @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_512cr73nx1/croot/twisted_1743537786551/work
-typing_extensions @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_0b3jpv_f79/croot/typing_extensions_1734714864260/work
-urllib3 @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_8dwi5l2dj0/croot/urllib3_1737133640453/work
-w3lib @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_e4l0s0u31h/croot/w3lib_1708639939851/work
-zope.interface @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_7dsjn2o7u7/croot/zope.interface_1731939363412/work
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-arm64
+# created-by: conda 25.5.1
+appdirs=1.4.4=pyhd3eb1b0_0
+appnope=0.1.4=pyhd8ed1ab_1
+asttokens=3.0.0=pyhd8ed1ab_1
+attrs=24.3.0=py310hca03da5_0
+automat=24.8.1=py310hca03da5_0
+bcrypt=4.3.0=py310h2aea54e_0
+beautifulsoup4=4.12.3=py310hca03da5_0
+brotli-python=1.0.9=py310h313beb8_9
+brotlicffi=1.0.9.2=py310h313beb8_1
+bzip2=1.0.8=h80987f9_6
+ca-certificates=2025.6.15=hbd8a1cb_0
+certifi=2025.6.15=pyhd8ed1ab_0
+cffi=1.17.1=py310h3eb5a62_1
+charset-normalizer=3.3.2=pyhd3eb1b0_0
+comm=0.2.2=pyhd8ed1ab_1
+constantly=23.10.4=py310hca03da5_0
+crochet=2.1.1=pyhd8ed1ab_1
+cryptography=44.0.1=py310h8026fc7_0
+cssselect=1.2.0=py310hca03da5_0
+debugpy=1.8.11=py310h313beb8_0
+decorator=5.2.1=pyhd8ed1ab_0
+defusedxml=0.7.1=pyhd3eb1b0_0
+exceptiongroup=1.3.0=pyhd8ed1ab_0
+executing=2.2.0=pyhd8ed1ab_0
+expat=2.7.1=h313beb8_0
+filelock=3.17.0=py310hca03da5_0
+hyperlink=21.0.0=pyhd3eb1b0_0
+icu=73.1=h313beb8_0
+idna=3.7=py310hca03da5_0
+importlib-metadata=8.7.0=pyhe01879c_1
+incremental=24.7.2=pyhd3eb1b0_0
+ipykernel=6.29.5=py310hca03da5_1
+ipython=8.30.0=py310hca03da5_0
+itemadapter=0.3.0=pyhd3eb1b0_0
+itemloaders=1.3.2=py310hca03da5_0
+jedi=0.19.2=pyhd8ed1ab_1
+jmespath=1.0.1=py310hca03da5_0
+jupyter_client=8.6.3=pyhd8ed1ab_1
+jupyter_core=5.8.1=pyh31011fe_0
+krb5=1.21.3=h237132a_0
+libcxx=17.0.6=he5c5206_3
+libedit=3.1.20230828=h80987f9_0
+libffi=3.4.4=hca03da5_1
+libiconv=1.16=h80987f9_3
+libsodium=1.0.20=h99b78c6_0
+libxml2=2.13.8=h0b34f26_0
+libxslt=1.1.41=hf4d3faa_0
+lxml=5.3.0=py310h1d4350b_1
+matplotlib-inline=0.1.7=pyhd8ed1ab_1
+ncurses=6.4=h313beb8_0
+nest-asyncio=1.6.0=pyhd8ed1ab_1
+openssl=3.5.0=h81ee809_1
+packaging=24.2=py310hca03da5_0
+parsel=1.8.1=py310hca03da5_0
+parso=0.8.4=pyhd8ed1ab_1
+pexpect=4.9.0=pyhd8ed1ab_1
+pip=25.1=pyhc872135_2
+platformdirs=4.3.8=pyhe01879c_0
+prompt-toolkit=3.0.43=py310hca03da5_0
+prompt_toolkit=3.0.43=hd3eb1b0_0
+protego=0.4.0=py310hca03da5_0
+psutil=5.9.0=py310h80987f9_1
+ptyprocess=0.7.0=pyhd3eb1b0_2
+pure_eval=0.2.3=pyhd8ed1ab_1
+pyasn1=0.4.8=pyhd3eb1b0_0
+pyasn1-modules=0.2.8=py_0
+pycparser=2.21=pyhd3eb1b0_0
+pydispatcher=2.0.7=py310hca03da5_0
+pygments=2.19.2=pyhd8ed1ab_0
+pyopenssl=25.0.0=py310h9e2d7d8_0
+pysocks=1.7.1=py310hca03da5_0
+python=3.10.18=h19e8193_0
+python-dateutil=2.9.0post0=py310hca03da5_2
+python_abi=3.10=2_cp310
+pywin32=307=py310hb6292c7_3
+pyzmq=26.2.0=py310h313beb8_0
+queuelib=1.6.2=py310hca03da5_0
+readline=8.2=h1a28f6b_0
+requests=2.32.4=py310hca03da5_0
+requests-file=2.1.0=py310hca03da5_0
+scrapy=2.13.2=pyhd8ed1ab_0
+service_identity=24.2.0=py310hca03da5_0
+setuptools=78.1.1=py310hca03da5_0
+six=1.17.0=pyhd8ed1ab_0
+soupsieve=2.5=py310hca03da5_0
+sqlite=3.45.3=h80987f9_0
+stack_data=0.6.3=pyhd8ed1ab_1
+tk=8.6.14=h6ba3021_1
+tldextract=5.1.2=py310hca03da5_0
+tomli=2.0.1=py310hca03da5_0
+tornado=6.5.1=py310h80987f9_0
+traitlets=5.14.3=pyhd8ed1ab_1
+twisted=24.11.0=py310hca03da5_0
+typing_extensions=4.12.2=py310hca03da5_0
+tzdata=2025b=h04d1e81_0
+urllib3=2.5.0=py310hca03da5_0
+w3lib=2.1.2=py310hca03da5_0
+wcwidth=0.2.13=pyhd8ed1ab_1
+wheel=0.45.1=py310hca03da5_0
+wrapt=1.17.0=py310h80987f9_0
+xz=5.6.4=h80987f9_1
+zeromq=4.3.5=h9f5b81c_6
+zipp=3.23.0=pyhd8ed1ab_0
+zlib=1.2.13=h18a0788_1
+zope=1.0=py310hca03da5_1
+zope.interface=7.1.1=py310h80987f9_0

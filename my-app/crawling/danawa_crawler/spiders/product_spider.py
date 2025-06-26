@@ -6,10 +6,10 @@ from urllib.parse import quote
 import gc
 
 
-class DanawaSpider(scrapy.Spider):
-    name = "danawa" # spider name
+class ProductSpider(scrapy.Spider):
+    name = "product" # spider name
 
-    def __init__(self, search_keyword="", pages=4, **kwargs):
+    def __init__(self, search_keyword="", pages=1, **kwargs):
         super().__init__(**kwargs)
         
         # Set search parameters with defaults
@@ -48,35 +48,6 @@ class DanawaSpider(scrapy.Spider):
             spider.settings.set('FEEDS', feeds) 
             
         return spider
-
-
-    # @classmethod
-    # def update_settings(cls, settings):
-    #     """Update spider settings to include dynamic filename based on search keyword"""
-    #     super().update_settings(settings)
-        
-    #     # Get the search keyword from spider arguments or use default
-    #     search_keyword = DanawaSpider._search_keyword
-        
-    #     # Clean the keyword for use in filename (remove special characters)
-    #     clean_keyword = re.sub(r'[^\w\s-]', '', search_keyword).strip()
-    #     clean_keyword = re.sub(r'[-\s]+', '_', clean_keyword)
-        
-    #     # Update FEEDS setting with dynamic filename
-    #     feeds = settings.get('FEEDS', {})
-        
-    #     # Create filename with timestamp and search keyword
-    #     filename = f"{clean_keyword}_nutrition_data.json"
-        
-    #     # Add new feed configuration
-    #     feeds[filename] = {
-    #         'format': 'json',
-    #         'encoding': 'utf8',
-    #         'store_empty': False,
-    #         'indent': 2
-    #     }
-        
-    #     settings.set('FEEDS', feeds)   
 
 
     def clean_html(self, raw_html):

@@ -1,0 +1,29 @@
+{
+  "input_product_info": {
+    "product_name": "매일 바이오 다논 랩토프리 그릭요거트 무가당",
+    "total_weight": null,
+    "calories": null,
+    "nutrition": null,
+    "nutrition_base": null,
+    "product_type": "그릭요거트",
+    "search_keyword": "그릭요거트"
+  },
+  "extracted_products": [
+    {
+      "prod_name": "매일 바이오 다논 랩토프리 그릭요거트 무가당",
+      "product_category": "그릭요거트",
+      "brand": "",
+      "search_keyword": "그릭요거트",
+      "original_item": {
+        "product_name": "매일 바이오 다논 랩토프리 그릭요거트 무가당",
+        "total_weight": null,
+        "calories": null,
+        "nutrition": null,
+        "nutrition_base": null,
+        "product_type": "그릭요거트",
+        "search_keyword": "그릭요거트"
+      }
+    }
+  ],
+  "timestamp": "2025-06-26 22:19:25"
+}

@@ -15,6 +15,20 @@ import re
 import os
 from datetime import datetime
 
+def render_product_selection(products_data):
+    st.write("### 제외할 제품을 선택하세요 (체크박스)")
+    exclude_indices = []
+    for i, product in enumerate(products_data):
+        checked = st.checkbox(
+            f"{product['name']} - {product['volume']} - {product['price']}",
+            key=f"exclude_{i}"
+        )
+        if checked:
+            exclude_indices.append(i)
+    # 체크된 제품을 제외한 리스트 반환
+    filtered_products = [p for i, p in enumerate(products_data) if i not in exclude_indices]
+    return filtered_products
+
 def extract_numeric_value(value_str):
     """문자열에서 숫자 값 추출 (예: "150kcal" -> 150)"""
     if isinstance(value_str, (int, float)):
@@ -267,11 +281,15 @@ def render():
             'type': 'similar'
         })
     
+    
     if not products_data:
         st.error("비교할 제품 데이터가 없습니다.")
         return
     
     st.success(f"✅ 총 {len(products_data)}개 제품의 영양성분을 비교합니다.")
+    
+    # 수정한 부분    
+    products_data = render_product_selection(products_data)
     
     # 사이드바에서 영양성분 선택
     st.sidebar.header("🎯 비교할 영양성분 선택")

@@ -1,0 +1,95 @@
+{
+  "selected_product": {
+    "prod_name": "샘표식품 차오차이마라샹궈소스110g",
+    "price": "1,782",
+    "volume": "110g",
+    "search_term": "마라샹궈소스",
+    "nutrition_info": {
+      "칼로리": "112kcal",
+      "단백질": "2g",
+      "지방": "4g",
+      "탄수화물": "18g",
+      "당분": "2g",
+      "나트륨": "56mg"
+    }
+  },
+  "category": "마라샹궈소스",
+  "similar_products": [
+    {
+      "prod_name": "샘표식품 차오차이마라샹궈소스110g",
+      "price": "1,782",
+      "volume": "110g",
+      "category": "마라샹궈소스",
+      "nutrition": {
+        "칼로리": "165kcal",
+        "단백질": "10g",
+        "지방": "12g",
+        "탄수화물": "27g",
+        "당분": "7g",
+        "나트륨": "29mg"
+      },
+      "selected_volume_reference": "110g"
+    },
+    {
+      "prod_name": "하이디라오 훠궈소스 탕용 100g (마라맛 버섯맛 토마토맛) 마라샹궈  하이디라오마라샹궈소스마라맛 볶음용 110g",
+      "price": "2,230",
+      "volume": "100g",
+      "category": "마라샹궈소스",
+      "nutrition": {
+        "칼로리": "177kcal",
+        "단백질": "5g",
+        "지방": "13g",
+        "탄수화물": "37g",
+        "당분": "13g",
+        "나트륨": "14mg"
+      },
+      "selected_volume_reference": "110g"
+    },
+    {
+      "prod_name": "호인가마라샹궈소스220g",
+      "price": "3,000",
+      "volume": "220g",
+      "category": "마라샹궈소스",
+      "nutrition": {
+        "칼로리": "85kcal",
+        "단백질": "9g",
+        "지방": "9g",
+        "탄수화물": "30g",
+        "당분": "3g",
+        "나트륨": "30mg"
+      },
+      "selected_volume_reference": "110g"
+    },
+    {
+      "prod_name": "마라판다마라샹궈소스업소용 1kg 3개",
+      "price": "47,800",
+      "volume": "1kg",
+      "category": "마라샹궈소스",
+      "nutrition": {
+        "칼로리": "68kcal",
+        "단백질": "1g",
+        "지방": "9g",
+        "탄수화물": "36g",
+        "당분": "10g",
+        "나트륨": "34mg"
+      },
+      "selected_volume_reference": "110g"
+    },
+    {
+      "prod_name": "CHONGQING XIANGSHUI 주군기마라샹궈소스900g",
+      "price": "10,800",
+      "volume": "900g",
+      "category": "마라샹궈소스",
+      "nutrition": {
+        "칼로리": "147kcal",
+        "단백질": "3g",
+        "지방": "5g",
+        "탄수화물": "16g",
+        "당분": "2g",
+        "나트륨": "193mg"
+      },
+      "selected_volume_reference": "110g"
+    }
+  ],
+  "timestamp": "2025-07-02 23:13:46"
+}

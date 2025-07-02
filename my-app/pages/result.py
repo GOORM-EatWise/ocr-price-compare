@@ -15,6 +15,10 @@ import re
 import os
 from datetime import datetime
 
+
+FILE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 def extract_numeric_value(value_str):
     """문자열에서 숫자 값 추출 (예: "150kcal" -> 150)"""
     if isinstance(value_str, (int, float)):
@@ -52,19 +56,21 @@ def load_saved_data():
     similar_products = None
     
     # original_product 폴더에서 가장 최근 파일 찾기
-    if os.path.exists('original_product'):
-        original_files = [f for f in os.listdir('original_product') if f.endswith('.json')]
+    if os.path.exists(f'{FILE_PATH}/danawa_product'):
+        original_files = [f for f in os.listdir(f'{FILE_PATH}/danawa_product') if f.endswith('.json') and re.search(r'original_products_\d+', f)]
         if original_files:
-            latest_original = max(original_files, key=lambda x: os.path.getctime(f'original_product/{x}'))
-            with open(f'original_product/{latest_original}', 'r', encoding='utf-8') as f:
+            latest_original = max(original_files, key=lambda x: os.path.getctime(f'{FILE_PATH}/danawa_product/{x}'))
+            with open(f'{FILE_PATH}/danawa_product/{latest_original}', 'r', encoding='utf-8') as f:
                 original_data = json.load(f)
+                idx = int(st.session_state.selected_original_product_index)
+                original_data = original_data.get('products', [])[idx]
     
     # danawa_product 폴더에서 similar_products 파일 찾기
-    if os.path.exists('danawa_product'):
-        danawa_files = [f for f in os.listdir('danawa_product') if f.startswith('similar_products') and f.endswith('.json')]
+    if os.path.exists(f'{FILE_PATH}/danawa_product'):
+        danawa_files = [f for f in os.listdir(f'{FILE_PATH}/danawa_product') if f.startswith('similar_products') and f.endswith('.json')]
         if danawa_files:
-            latest_similar = max(danawa_files, key=lambda x: os.path.getctime(f'danawa_product/{x}'))
-            with open(f'danawa_product/{latest_similar}', 'r', encoding='utf-8') as f:
+            latest_similar = max(danawa_files, key=lambda x: os.path.getctime(f'{FILE_PATH}/danawa_product/{x}'))
+            with open(f'{FILE_PATH}/danawa_product/{latest_similar}', 'r', encoding='utf-8') as f:
                 similar_data = json.load(f)
                 similar_products = similar_data.get('similar_products', [])
     
@@ -102,7 +108,7 @@ def normalize_nutrition_for_radar(products_data, selected_nutrients):
     """영양성분 데이터를 0-1 범위로 Min-Max 정규화"""
     nutrition_df = pd.DataFrame([
         {nutrient: extract_numeric_value(product['nutrition'].get(nutrient, 0)) 
-         for nutrient in selected_nutrients}
+        for nutrient in selected_nutrients}
         for product in products_data
     ])
     
@@ -216,17 +222,19 @@ def render():
         return
     
     # 원본 상품 정보 추출
-    original_product_info = original_data.get('input_product_info', {})
-    if isinstance(original_product_info, list):
-        original_product_info = original_product_info[0]
+    # original_product_info = original_data.get('input_product_info', {})
+    # if isinstance(original_product_info, list):
+    #     original_product_info = original_product_info[0]
     
+    original_product_info = original_data
+
     # 모든 제품 데이터 준비
     products_data = []
     
     # 원본 상품 추가 (영양성분 정보가 있다면)
     if 'nutrition_info' in original_product_info:
         products_data.append({
-            'name': f"입력상품: {original_product_info.get('product_name', 'Unknown')}",
+            'name': f"입력상품: {original_product_info.get('prod_name', 'Unknown')}",
             'nutrition': original_product_info['nutrition_info'],
             'volume': original_product_info.get('volume', '100g'),
             'price': original_product_info.get('price', '가격 정보 없음'),

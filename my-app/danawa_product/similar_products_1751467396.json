@@ -1,0 +1,95 @@
+{
+  "selected_product": {
+    "prod_name": "오뚜기 오즈키친 고추마라샹궈180g",
+    "price": "2,570",
+    "volume": "180g",
+    "search_term": "마라샹궈 소스",
+    "nutrition_info": {
+      "칼로리": "160kcal",
+      "단백질": "10g",
+      "지방": "9g",
+      "탄수화물": "19g",
+      "당분": "21g",
+      "나트륨": "184mg"
+    }
+  },
+  "category": "마라샹궈 소스",
+  "similar_products": [
+    {
+      "prod_name": "하이디라오마라샹궈소스220g",
+      "price": "3,280",
+      "volume": "220g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "193kcal",
+        "단백질": "10g",
+        "지방": "11g",
+        "탄수화물": "40g",
+        "당분": "7g",
+        "나트륨": "88mg"
+      },
+      "selected_volume_reference": "180g"
+    },
+    {
+      "prod_name": "하이디라오 1kg마라탕마라샹궈마라훠궈소스청유샤브샤브소스업소용대용량마라탕1kg 1개",
+      "price": "12,500",
+      "volume": "1kg",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "168kcal",
+        "단백질": "7g",
+        "지방": "4g",
+        "탄수화물": "12g",
+        "당분": "13g",
+        "나트륨": "67mg"
+      },
+      "selected_volume_reference": "180g"
+    },
+    {
+      "prod_name": "오뚜기 오즈키친 고추마라샹궈180g",
+      "price": "2,570",
+      "volume": "180g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "129kcal",
+        "단백질": "9g",
+        "지방": "11g",
+        "탄수화물": "34g",
+        "당분": "20g",
+        "나트륨": "139mg"
+      },
+      "selected_volume_reference": "180g"
+    },
+    {
+      "prod_name": "하이디라오 하이디라오마라샹궈소스110g",
+      "price": "6,000",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "243kcal",
+        "단백질": "9g",
+        "지방": "13g",
+        "탄수화물": "20g",
+        "당분": "19g",
+        "나트륨": "152mg"
+      },
+      "selected_volume_reference": "180g"
+    },
+    {
+      "prod_name": "하이디라오마라샹궈소스110g",
+      "price": "2,500",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "252kcal",
+        "단백질": "7g",
+        "지방": "0g",
+        "탄수화물": "17g",
+        "당분": "25g",
+        "나트륨": "185mg"
+      },
+      "selected_volume_reference": "180g"
+    }
+  ],
+  "timestamp": "2025-07-02 23:43:16"
+}

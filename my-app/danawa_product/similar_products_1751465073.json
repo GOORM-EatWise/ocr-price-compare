@@ -1,0 +1,87 @@
+{
+  "selected_product": {
+    "prod_name": "하이디라오마라샹궈소스220g",
+    "price": "3,280",
+    "volume": "220g",
+    "search_term": "마라샹궈 소스"
+  },
+  "category": "마라샹궈 소스",
+  "similar_products": [
+    {
+      "prod_name": "하이디라오마라샹궈소스220g",
+      "price": "3,280",
+      "volume": "220g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "179kcal",
+        "단백질": "8g",
+        "지방": "12g",
+        "탄수화물": "11g",
+        "당분": "1g",
+        "나트륨": "19mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "하이디라오 1kg마라탕마라샹궈마라훠궈소스청유샤브샤브소스업소용대용량마라탕1kg 1개",
+      "price": "12,500",
+      "volume": "1kg",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "231kcal",
+        "단백질": "2g",
+        "지방": "5g",
+        "탄수화물": "9g",
+        "당분": "15g",
+        "나트륨": "163mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "오뚜기 오즈키친 고추마라샹궈180g",
+      "price": "2,570",
+      "volume": "180g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "202kcal",
+        "단백질": "2g",
+        "지방": "4g",
+        "탄수화물": "13g",
+        "당분": "7g",
+        "나트륨": "43mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "하이디라오 하이디라오마라샹궈소스110g",
+      "price": "6,000",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "268kcal",
+        "단백질": "4g",
+        "지방": "11g",
+        "탄수화물": "16g",
+        "당분": "17g",
+        "나트륨": "95mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "하이디라오마라샹궈소스110g",
+      "price": "2,500",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "225kcal",
+        "단백질": "6g",
+        "지방": "2g",
+        "탄수화물": "21g",
+        "당분": "8g",
+        "나트륨": "153mg"
+      },
+      "selected_volume_reference": "220g"
+    }
+  ],
+  "timestamp": "2025-07-02 23:04:33"
+}

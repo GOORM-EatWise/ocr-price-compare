@@ -1,0 +1,87 @@
+{
+  "selected_product": {
+    "prod_name": "하이디라오마라샹궈소스220g",
+    "price": "3,280",
+    "volume": "220g",
+    "search_term": "마라샹궈 소스"
+  },
+  "category": "소스",
+  "similar_products": [
+    {
+      "prod_name": "호멜 스키피 노슈거에디드 청크 454g",
+      "price": "8,200",
+      "volume": "454g",
+      "category": "소스",
+      "nutrition": {
+        "칼로리": "68kcal",
+        "단백질": "9g",
+        "지방": "5g",
+        "탄수화물": "28g",
+        "당분": "8g",
+        "나트륨": "93mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "키친스토리 빅마마 이혜정 시크릿코인 세트 편안한+개운한 205알 820g",
+      "price": "46,270",
+      "volume": "820g",
+      "category": "소스",
+      "nutrition": {
+        "칼로리": "153kcal",
+        "단백질": "2g",
+        "지방": "0g",
+        "탄수화물": "40g",
+        "당분": "13g",
+        "나트륨": "98mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "호멜 스키피 수퍼 청크 땅콩버터 1.36kg",
+      "price": "8,880",
+      "volume": "1.36kg",
+      "category": "소스",
+      "nutrition": {
+        "칼로리": "104kcal",
+        "단백질": "2g",
+        "지방": "8g",
+        "탄수화물": "14g",
+        "당분": "21g",
+        "나트륨": "74mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "대상 청정원 화끈한 매운갈비 양념 10kg",
+      "price": "36,890",
+      "volume": "10kg",
+      "category": "소스",
+      "nutrition": {
+        "칼로리": "149kcal",
+        "단백질": "8g",
+        "지방": "11g",
+        "탄수화물": "32g",
+        "당분": "13g",
+        "나트륨": "177mg"
+      },
+      "selected_volume_reference": "220g"
+    },
+    {
+      "prod_name": "팔도 비빔장 저칼로리 185g",
+      "price": "2,980",
+      "volume": "185g",
+      "category": "소스",
+      "nutrition": {
+        "칼로리": "222kcal",
+        "단백질": "3g",
+        "지방": "7g",
+        "탄수화물": "40g",
+        "당분": "24g",
+        "나트륨": "42mg"
+      },
+      "selected_volume_reference": "220g"
+    }
+  ],
+  "timestamp": "2025-07-02 22:29:31"
+}

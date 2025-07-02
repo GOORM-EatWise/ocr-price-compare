@@ -1,0 +1,95 @@
+{
+  "selected_product": {
+    "prod_name": "차오차이레토르트마라샹궈170g 6팩 /간편식/중화요리/짜장/마파두부/소스/양념",
+    "price": "25,850",
+    "volume": "170g",
+    "search_term": "차오차이 마라샹궈 소스",
+    "nutrition_info": {
+      "칼로리": "290kcal",
+      "단백질": "8g",
+      "지방": "6g",
+      "탄수화물": "24g",
+      "당분": "8g",
+      "나트륨": "94mg"
+    }
+  },
+  "category": "마라샹궈 소스",
+  "similar_products": [
+    {
+      "prod_name": "하이디라오마라샹궈소스220g",
+      "price": "3,280",
+      "volume": "220g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "167kcal",
+        "단백질": "4g",
+        "지방": "10g",
+        "탄수화물": "21g",
+        "당분": "10g",
+        "나트륨": "121mg"
+      },
+      "selected_volume_reference": "170g"
+    },
+    {
+      "prod_name": "하이디라오 1kg마라탕마라샹궈마라훠궈소스청유샤브샤브소스업소용대용량마라탕1kg 1개",
+      "price": "12,500",
+      "volume": "1kg",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "123kcal",
+        "단백질": "1g",
+        "지방": "5g",
+        "탄수화물": "19g",
+        "당분": "17g",
+        "나트륨": "10mg"
+      },
+      "selected_volume_reference": "170g"
+    },
+    {
+      "prod_name": "오뚜기 오즈키친 고추마라샹궈180g",
+      "price": "2,570",
+      "volume": "180g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "283kcal",
+        "단백질": "8g",
+        "지방": "7g",
+        "탄수화물": "22g",
+        "당분": "22g",
+        "나트륨": "147mg"
+      },
+      "selected_volume_reference": "170g"
+    },
+    {
+      "prod_name": "하이디라오 하이디라오마라샹궈소스110g",
+      "price": "6,000",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "227kcal",
+        "단백질": "4g",
+        "지방": "4g",
+        "탄수화물": "28g",
+        "당분": "0g",
+        "나트륨": "69mg"
+      },
+      "selected_volume_reference": "170g"
+    },
+    {
+      "prod_name": "하이디라오마라샹궈소스110g",
+      "price": "2,500",
+      "volume": "110g",
+      "category": "마라샹궈 소스",
+      "nutrition": {
+        "칼로리": "69kcal",
+        "단백질": "7g",
+        "지방": "10g",
+        "탄수화물": "24g",
+        "당분": "4g",
+        "나트륨": "55mg"
+      },
+      "selected_volume_reference": "170g"
+    }
+  ],
+  "timestamp": "2025-07-03 00:07:34"
+}

@@ -2,27 +2,43 @@ import cv2
 import numpy as np
 
 def preprocess_image(img: np.array):
-    #img = cv2.imread(image_path)
-    
-    if img is None:
-        raise FileNotFoundError("이미지를 찾을 수 없습니다")
-
-    # 1.5배 확대 (INTER_CUBIC)
-    img = cv2.resize(img, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
-
-    # 그레이스케일 변환
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    return clahe.apply(gray)
 
-    # CLAHE 적용 (명암 대비 향상)
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
-    enhanced = clahe.apply(gray)
 
-    # 샤프닝 필터 (경계선 강화)
-    kernel = np.array([[0, -1, 0],
-                       [-1, 5, -1],
-                       [0, -1, 0]])
-    sharpened = cv2.filter2D(enhanced, -1, kernel)
 
-    # 저장 (이진화 없이)
-    #cv2.imwrite(save_path, sharpened)
-    return sharpened
+
+def detect_and_draw_rectangles(img: np.array, block_size=15, C=5,
+                               morph_kernel=(3, 3),
+                               min_area_ratio=0.003,
+                               draw_result=False):
+
+    if img is None:
+        return []
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    h, w = gray.shape
+
+    bw = cv2.adaptiveThreshold(
+        gray, 255,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY_INV,  
+        block_size, C
+    )
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, morph_kernel)
+    closed = cv2.morphologyEx(bw, cv2.MORPH_CLOSE, kernel, iterations=1)
+
+    cnts, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    rects = []
+    for cnt in cnts:
+        x, y, ww, hh = cv2.boundingRect(cnt)
+        area = ww * hh
+        aspect = ww / float(hh + 1e-5)
+
+        if area >= w * h * min_area_ratio and 0.8 < aspect < 5.0 and hh > 30:
+            rects.append((x, y, ww, hh))
+    
+    cropped_images = [img[y:y + hh, x:x + ww] for (x, y, ww, hh) in rects]
+    
+    return rects, cropped_images

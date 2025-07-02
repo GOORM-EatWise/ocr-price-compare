@@ -13,7 +13,12 @@ def run_ocr(img: np.array, font_path: str, save_json: str = None, save_annotated
     Returns: ocr_data (list of dict), annotated_image (numpy array RGB)
     """
     # 1OCR 초기화 
-    ocr = PaddleOCR(use_angle_cls=True, lang='korean', use_gpu=False,show_log=False)
+    ocr = PaddleOCR(use_angle_cls=True,
+        lang='korean',
+        det_db_box_thresh=0.3,     # 텍스트 박스 임계값 낮추기
+        det_db_unclip_ratio=2.0,   # 텍스트 박스 확대 비율
+        use_gpu=False,
+        show_log=False)
 
     # 이미지 읽고 RGB 변환
     #img = cv2.imread(img_path)

@@ -35,7 +35,7 @@ def extract_product_info(product_info):
 
 def create_directories():
     """필요한 디렉토리 생성"""
-    directories = ['original_product', 'danawa_product']
+    directories = ['my-app/original_product', 'my-app/danawa_product']
     for directory in directories:
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -300,7 +300,7 @@ def render():
         st.json(product_info)
         
         # 입력한 상품 정보를 original_product 폴더에 저장
-        original_filename = f"original_product/input_product_{int(time.time())}.json"
+        original_filename = f"my-app/original_product/input_product_{int(time.time())}.json"
         with open(original_filename, 'w', encoding='utf-8') as f:
             json.dump({
                 "input_product_info": product_info,
@@ -321,7 +321,7 @@ def render():
                     st.session_state.original_products = original_products
                     
                     # JSON 파일을 danawa_product 폴더에 저장
-                    danawa_filename = f"danawa_product/original_products_{int(time.time())}.json"
+                    danawa_filename = f"my-app/danawa_product/original_products_{int(time.time())}.json"
                     with open(danawa_filename, 'w', encoding='utf-8') as f:
                         json.dump({
                             "search_term": search_term,
@@ -390,7 +390,7 @@ def render():
                     st.session_state.similar_products = similar_products
                     
                     # JSON 파일을 danawa_product 폴더에 저장
-                    danawa_filename = f"danawa_product/similar_products_{int(time.time())}.json"
+                    danawa_filename = f"my-app/danawa_product/similar_products_{int(time.time())}.json"
                     comparison_data = {
                         "selected_product": selected,
                         "category": category,

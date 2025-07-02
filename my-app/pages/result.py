@@ -15,6 +15,16 @@ import re
 import os
 from datetime import datetime
 
+# my-app 폴더 기준 경로
+BASE_DIR = os.path.dirname(__file__)            # my-app/pages/result.py 에서 불러온다면 BASE_DIR은 my-app/pages
+BASE_DIR = os.path.normpath(os.path.join(BASE_DIR, '..'))  # 한 단계 위(my-app)
+
+ORIG_DIR   = os.path.join(BASE_DIR, 'original_product')
+DANAWA_DIR = os.path.join(BASE_DIR, 'danawa_product')
+
+
+
+
 def extract_numeric_value(value_str):
     """문자열에서 숫자 값 추출 (예: "150kcal" -> 150)"""
     if isinstance(value_str, (int, float)):
@@ -47,27 +57,35 @@ def normalize_nutrition_per_weight(nutrition_data, current_volume, target_weight
     return normalized
 
 def load_saved_data():
-    """저장된 JSON 파일들에서 데이터 로드"""
     original_data = None
     similar_products = None
-    
+
     # original_product 폴더에서 가장 최근 파일 찾기
-    if os.path.exists('original_product'):
-        original_files = [f for f in os.listdir('original_product') if f.endswith('.json')]
+    if os.path.isdir(ORIG_DIR):
+        original_files = [f for f in os.listdir(ORIG_DIR) if f.endswith('.json')]
         if original_files:
-            latest_original = max(original_files, key=lambda x: os.path.getctime(f'original_product/{x}'))
-            with open(f'original_product/{latest_original}', 'r', encoding='utf-8') as f:
-                original_data = json.load(f)
-    
+            latest = max(
+                original_files,
+                key=lambda fn: os.path.getctime(os.path.join(ORIG_DIR, fn))
+            )
+            with open(os.path.join(ORIG_DIR, latest), 'r', encoding='utf-8') as fp:
+                original_data = json.load(fp)
+
     # danawa_product 폴더에서 similar_products 파일 찾기
-    if os.path.exists('danawa_product'):
-        danawa_files = [f for f in os.listdir('danawa_product') if f.startswith('similar_products') and f.endswith('.json')]
+    if os.path.isdir(DANAWA_DIR):
+        danawa_files = [
+            f for f in os.listdir(DANAWA_DIR)
+            if f.startswith('similar_products') and f.endswith('.json')
+        ]
         if danawa_files:
-            latest_similar = max(danawa_files, key=lambda x: os.path.getctime(f'danawa_product/{x}'))
-            with open(f'danawa_product/{latest_similar}', 'r', encoding='utf-8') as f:
-                similar_data = json.load(f)
-                similar_products = similar_data.get('similar_products', [])
-    
+            latest = max(
+                danawa_files,
+                key=lambda fn: os.path.getctime(os.path.join(DANAWA_DIR, fn))
+            )
+            with open(os.path.join(DANAWA_DIR, latest), 'r', encoding='utf-8') as fp:
+                data = json.load(fp)
+                similar_products = data.get('similar_products', [])
+
     return original_data, similar_products
 
 def create_nutrition_comparison_table_by_weight(selected_nutrients, products_data, weight):

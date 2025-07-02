@@ -1,13 +1,13 @@
 import streamlit as st
 import base64
+import os
+import sys
 from ocr.paddle_ocr import run_ocr
 from llm.promt_to_json import get_product_info_from_ocr
 from utils.ocr_utils import ocr_quality_score
 from preprocessing.preprocess import preprocess_image
 import os
-import cv2
-#import get_product_info_from_ocr
-#import run_ocr 
+import cv2 
 import traceback
 import pandas as pd
 
@@ -22,9 +22,9 @@ def render():
     font_path = 'C:/Windows/Fonts/malgun.ttf' 
     
     if not st.session_state.img_to_analysis_done:
-        st.title("로딩 중....")
+        #st.title("로딩 중....")
         
-        with st.spinner("이미지를 분석 중입니다..."):
+        with st.spinner("text 추출 중입니다..."):
         # image -> text -> AI(Gemini)
             try:
                 print("이미지 텍스트 변환 시도")
@@ -58,28 +58,23 @@ def render():
     st.session_state.product_info = product_info
     
     st.header("추출된 상품 상세정보")
-    #st.json(product_info)  # 또는 st.write(product_info)
-    
-    # DataFrame으로 변환
-    # display_data = {
-    #     "항목": ["제품명", "제품 종류", "검색을 위한 키워드"],
-    #     "내용": [product_info["product_name"], product_info["product_type"], product_info["search_keyword"]]}
-    
-    # df = pd.DataFrame(display_data)
 
-    # st.table(df)
+    st.write("**제품명:**", product_info["product_name"])
+    st.write("**회사 명:**", product_info["company_name"])
+    st.write("**검색 키워드:**", product_info["search_keyword"])
     
-    col1, col2 = st.columns([1, 2])
+    st.markdown("---")
+    st.write("### 분석하려는 상품이 맞습니까?")
     
-    with col1:
-        st.write("**제품명:**")
-        st.write("**회사 명:**")
-        st.write("**검색 키워드:**")
-
-    with col2:
-        st.write(product_info["product_name"])
-        st.write(product_info["company_name"])
-        st.write(product_info["search_keyword"])
+    col_yes, col_no = st.columns(2)
     
-    if st.button('다음으로'):
-        st.session_state.page = 'crawling'
+    with col_yes:
+        if st.button('예'):
+            st.session_state.page = 'crawling'
+    with col_no:
+        if st.button('아니오'):
+            st.session_state.page = 'image_upload_option'
+    
+    
+    # if st.button('다음으로'):
+    #     st.session_state.page = 'crawling'

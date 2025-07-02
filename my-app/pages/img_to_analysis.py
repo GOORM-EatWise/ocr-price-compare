@@ -7,8 +7,10 @@ from ocr.paddle_ocr import run_ocr
 from preprocessing.preprocess import preprocess_image, detect_and_draw_rectangles
 from utils.ocr_utils import ocr_quality_score
 from llm.promt_to_json import get_product_info_from_ocr
+import difflib
 
 def price_score(texts):
+    import re
     full = " ".join(texts).lower()
     score = 0
 
@@ -16,24 +18,34 @@ def price_score(texts):
     if any(k in full for k in ['원', '₩', '할인', 'sale', '%', '기획']):
         score += 2
 
-    # 숫자 포함 비율이 높은 경우
+    # 숫자 포함 비율
     digit_ratio = sum(1 for t in texts if any(c.isdigit() for c in t)) / max(len(texts), 1)
     if digit_ratio > 0.3:
         score += 1
 
-    # 가격형 패턴 (예: 3980, 2,500, 10g당 123원 등)
-    import re
+    # 가격형 패턴
     price_pattern = re.compile(r'[\d,]+원|[\d,]{3,5}')
     if price_pattern.search(full):
         score += 2
 
-    # '당', 'g', '개' 등 단위가 있는 경우
+    #  단위 키워드
     if any(u in full for u in ['g', 'ml', '개당', 'kg', '당']):
         score += 1
 
-    # 2개 이상 단위 + 숫자 조합이 있을 경우
+    # 숫자 + 단위 조합
     if digit_ratio > 0.2 and any(u in full for u in ['g', '원']):
         score += 1
+
+    # 감점: 유사한 영양성분 키워드 포함 시
+    nutrition_keywords = ['콜레스테롤', '나트륨', '단백질', '탄수화물', '포화지방', '지방', '당류', '열량', '칼로리']
+    lowered_texts = [t.lower() for t in texts]
+
+    for t in lowered_texts:
+        for nk in nutrition_keywords:
+            # 유사도가 0.8 이상이면 감점
+            if difflib.SequenceMatcher(None, t, nk).ratio() > 0.8:
+                score -= 3
+                break
 
     return score
 

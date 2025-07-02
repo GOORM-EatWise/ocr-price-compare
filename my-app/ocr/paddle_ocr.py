@@ -13,7 +13,7 @@ def run_ocr(img: np.array, font_path: str, save_json: str = None, save_annotated
     Returns: ocr_data (list of dict), annotated_image (numpy array RGB)
     """
     # 1OCR 초기화 
-    ocr = PaddleOCR(use_angle_cls=True,
+    ocr = PaddleOCR(use_angle_cls=False,
         lang='korean',
         det_db_box_thresh=0.3,     # 텍스트 박스 임계값 낮추기
         det_db_unclip_ratio=2.0,   # 텍스트 박스 확대 비율

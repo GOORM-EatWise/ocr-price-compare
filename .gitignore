@@ -15,14 +15,12 @@ __pycache__/
 db.sqlite3
 
 # 데이터 및 결과 폴더 (OCR, 크롤링 등)
-data/
-output/
-json/
-llm_json/
-danawa_product/
-original_product/
-my-app/assets/raw/
-my-app/assets/processed/
+my-app/json/
+my-app/json_proc/
+my-app/llm_json/
+my-app/annotaed/
+my-app/annotaed_proc/
+my-app/sample/
 
 # Jupyter 자동 저장 체크포인트
 .ipynb_checkpoints/

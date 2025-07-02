@@ -1,5 +1,6 @@
 import streamlit as st
 from pages import get_user_info
+from pages import eatwise_info
 from pages import image_upload_option
 from pages import image_upload
 from pages import camera
@@ -10,6 +11,7 @@ from pages import result
 # 페이지 이름과 표시할 카테고리 이름 매핑
 page_names = [
     'get_user_info',
+    'eatwise_info',
     'image_upload_option', 
     'image_upload',
     'camera',
@@ -20,6 +22,7 @@ page_names = [
 
 page_labels = [
     '👤 사용자 정보 입력',
+    '🍏 EatWise 설명',
     '📂 이미지 업로드 옵션',
     '📷 이미지 업로드',
     '📸 카메라 촬영',
@@ -32,7 +35,7 @@ page_labels = [
 st.sidebar.title('🍎 EatWise 메뉴')
 st.sidebar.markdown("---")
 
-# 현재 페이지에 해당하는 라벨 찾기
+#현재 페이지에 해당하는 라벨 찾기
 current_page_index = 0
 if 'page' in st.session_state:
     try:
@@ -56,7 +59,9 @@ st.session_state.page = selected_page_name
 
 # 페이지 이동 처리 (기존 코드 유지)
 if st.session_state.page == 'get_user_info':
-    get_user_info.render()
+    get_user_info.render() 
+elif st.session_state.page == 'eatwise_info':
+    eatwise_info.render()     
 elif st.session_state.page == 'image_upload_option':
     image_upload_option.render()
 elif st.session_state.page == 'image_upload':

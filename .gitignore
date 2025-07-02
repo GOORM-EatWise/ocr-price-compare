@@ -21,6 +21,9 @@ my-app/llm_json/
 my-app/annotaed/
 my-app/annotaed_proc/
 my-app/sample/
+my-app/assets/
+my-app/original_product/
+my-app/danawa_product/
 
 # Jupyter 자동 저장 체크포인트
 .ipynb_checkpoints/

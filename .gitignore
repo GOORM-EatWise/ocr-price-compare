@@ -24,3 +24,7 @@ my-app/sample/
 
 # Jupyter 자동 저장 체크포인트
 .ipynb_checkpoints/
+
+
+# firebase api Key
+eatwise-4dfe3-firebase-adminsdk-fbsvc-4b7495f398.json

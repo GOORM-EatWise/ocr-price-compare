@@ -31,6 +31,7 @@ def render():
     st.session_state.user_info['gender'] = gender
     st.session_state.user_info['height'] = height
     st.session_state.user_info['weight'] = weight
+    st.session_state.user_info['age'] = age
 
     if st.button('다음', key='to_image_upload_option'):
         st.session_state.page = 'image_upload_option'

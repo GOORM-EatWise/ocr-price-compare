@@ -24,6 +24,20 @@ DANAWA_DIR = os.path.join(BASE_DIR, 'danawa_product')
 
 
 
+def render_product_selection(products_data):
+    st.write("### 제외할 제품을 선택하세요 (체크박스)")
+    exclude_indices = []
+    for i, product in enumerate(products_data):
+        checked = st.checkbox(
+            f"{product['name']} - {product['volume']} - {product['price']}",
+            key=f"exclude_{i}"
+        )
+        if checked:
+            exclude_indices.append(i)
+    # 체크된 제품을 제외한 리스트 반환
+    filtered_products = [p for i, p in enumerate(products_data) if i not in exclude_indices]
+    return filtered_products
+
 
 def extract_numeric_value(value_str):
     """문자열에서 숫자 값 추출 (예: "150kcal" -> 150)"""
@@ -38,22 +52,46 @@ def extract_numeric_value(value_str):
     
     return 0.0
 
+def parse_volume(volume_str):
+    """
+    예시: '1.8L' → 1800, '500ml' → 500, '2kg' → 2000, '30g' → 30
+    """
+    if not isinstance(volume_str, str):
+        return None
+
+    # 숫자와 단위 분리
+    match = re.match(r'([\d\.]+)\s*([a-zA-Z가-힣]+)', volume_str.strip())
+    if not match:
+        return None
+
+    num = float(match.group(1))
+    unit = match.group(2).lower()
+
+    # 단위 변환
+    if unit in ['g', '그램']:
+        return num  # g 단위
+    elif unit in ['kg', '킬로그램']:
+        return num * 1000  # kg → g
+    elif unit in ['ml', '밀리리터']:
+        return num  # ml 단위 (물/음료는 g와 거의 동일하게 취급 가능)
+    elif unit in ['l', '리터']:
+        return num * 1000  # L → ml(또는 g)
+    else:
+        return num  # 알 수 없는 단위는 일단 숫자만 반환
+
 def normalize_nutrition_per_weight(nutrition_data, current_volume, target_weight):
     """현재 용량을 기준으로 목표 중량당 영양성분 계산"""
-    # 현재 용량에서 숫자 추출
-    current_weight = extract_numeric_value(current_volume)
-    
-    if current_weight == 0:
+    # 단위 변환 적용
+    current_weight = parse_volume(str(current_volume))
+    if not current_weight or current_weight == 0:
         current_weight = 100  # 기본값
-    
-    # 비율 계산
+
     ratio = target_weight / current_weight
-    
+
     normalized = {}
     for key, value in nutrition_data.items():
         numeric_value = extract_numeric_value(value)
         normalized[key] = round(numeric_value * ratio, 2)
-    
     return normalized
 
 def load_saved_data():
@@ -64,11 +102,11 @@ def load_saved_data():
     if os.path.isdir(ORIG_DIR):
         original_files = [f for f in os.listdir(ORIG_DIR) if f.endswith('.json')]
         if original_files:
-            latest = max(
+            latest_original = max(
                 original_files,
                 key=lambda fn: os.path.getctime(os.path.join(ORIG_DIR, fn))
             )
-            with open(os.path.join(ORIG_DIR, latest), 'r', encoding='utf-8') as fp:
+            with open(os.path.join(ORIG_DIR, latest_original), 'r', encoding='utf-8') as fp:
                 original_data = json.load(fp)
 
     # danawa_product 폴더에서 similar_products 파일 찾기
@@ -78,13 +116,13 @@ def load_saved_data():
             if f.startswith('similar_products') and f.endswith('.json')
         ]
         if danawa_files:
-            latest = max(
+            latest_similar = max(
                 danawa_files,
                 key=lambda fn: os.path.getctime(os.path.join(DANAWA_DIR, fn))
             )
-            with open(os.path.join(DANAWA_DIR, latest), 'r', encoding='utf-8') as fp:
-                data = json.load(fp)
-                similar_products = data.get('similar_products', [])
+            with open(os.path.join(DANAWA_DIR, latest_similar), 'r', encoding='utf-8') as fp:
+                similar_data  = json.load(fp)
+                similar_products = similar_data.get('similar_products', [])
 
     return original_data, similar_products
 
@@ -266,6 +304,9 @@ def render():
         return
     
     st.success(f"✅ 총 {len(products_data)}개 제품의 영양성분을 비교합니다.")
+
+    # 수정한 부분    
+    products_data = render_product_selection(products_data)
     
     # 사이드바에서 영양성분 선택
     st.sidebar.header("🎯 비교할 영양성분 선택")

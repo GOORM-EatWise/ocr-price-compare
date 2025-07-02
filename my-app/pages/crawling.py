@@ -60,8 +60,35 @@ def extract_volume_from_name(product_name):
     
     return "용량 정보 없음"
 
+def extract_keywords_from_product(product_info):
+    """
+    OCR 결과에서 상품명, 카테고리, 브랜드 등에서 유의미한 키워드 추출
+    """
+    keywords = set()
+    for key in ['product_name', 'product_type', 'brand']:
+        value = product_info.get(key, '')
+        words = re.findall(r'[가-힣a-zA-Z]+', value)
+        for w in words:
+            if len(w) >= 2:
+                keywords.add(w)
+    return keywords
+
+def filter_products_by_keywords(products, wanted_keywords):
+    """
+    상품명/카테고리에 OCR에서 추출한 키워드가 하나라도 포함된 상품만 남김
+    """
+    filtered = []
+    for product in products:
+        prod_name = product.get('prod_name', '')
+        category = product.get('category', '') or product.get('product_category', '')
+        for kw in wanted_keywords:
+            if kw in prod_name or kw in category:
+                filtered.append(product)
+                break
+    return filtered
+
 def crawl_original_product_volumes(search_term, max_products=3):
-    """원본 상품의 다양한 용량 옵션 크롤링"""
+    """원본 상품의 다양한 용량 옵션 크롤링. 없으면 상품명 그대로 크롤링."""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
     }
@@ -72,9 +99,6 @@ def crawl_original_product_volumes(search_term, max_products=3):
         response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
-        products = []
-        
-        # 상품 리스트 선택자
         selectors = ['.prod_main_info', '.prod_item', '.item_wrap', '.list_item']
         
         product_items = []
@@ -86,10 +110,9 @@ def crawl_original_product_volumes(search_term, max_products=3):
         if not product_items:
             return []
         
-        # 용량별로 그룹화하기 위한 딕셔너리
+        # 1차: 용량별 옵션 크롤링
         volume_products = {}
-        
-        for idx, item in enumerate(product_items[:max_products*2]):  # 더 많이 검색해서 용량 다양성 확보
+        for idx, item in enumerate(product_items[:max_products*2]):
             try:
                 # 상품명 추출
                 name_selectors = ['.prod_name a', '.item_name a', '.prod_info .name']
@@ -99,10 +122,8 @@ def crawl_original_product_volumes(search_term, max_products=3):
                     if name_elem:
                         product_name = name_elem.get_text(strip=True)
                         break
-                
                 if not product_name:
                     continue
-                
                 # 가격 추출
                 price_selectors = ['.price_sect strong', '.price strong', '.item_price strong']
                 price = "가격 정보 없음"
@@ -111,11 +132,8 @@ def crawl_original_product_volumes(search_term, max_products=3):
                     if price_elem:
                         price = price_elem.get_text(strip=True)
                         break
-                
                 # 용량 추출
                 volume = extract_volume_from_name(product_name)
-                
-                # 검색어와 유사한 상품만 필터링
                 if search_term.lower() in product_name.lower():
                     product_data = {
                         "prod_name": product_name,
@@ -123,19 +141,46 @@ def crawl_original_product_volumes(search_term, max_products=3):
                         "volume": volume,
                         "search_term": search_term
                     }
-                    
-                    # 용량별로 그룹화 (같은 용량이면 첫 번째 것만 저장)
                     if volume not in volume_products:
                         volume_products[volume] = product_data
-                
-            except Exception as e:
+            except Exception:
                 continue
         
-        # 최대 3개까지만 반환
         products = list(volume_products.values())[:max_products]
-        return products
         
-    except Exception as e:
+        # 2차: 용량별 옵션이 없으면 상품명 그대로 크롤링
+        if not products:
+            products = []
+            for idx, item in enumerate(product_items[:max_products]):
+                try:
+                    name_selectors = ['.prod_name a', '.item_name a', '.prod_info .name']
+                    product_name = None
+                    for name_sel in name_selectors:
+                        name_elem = item.select_one(name_sel)
+                        if name_elem:
+                            product_name = name_elem.get_text(strip=True)
+                            break
+                    if not product_name:
+                        continue
+                    price_selectors = ['.price_sect strong', '.price strong', '.item_price strong']
+                    price = "가격 정보 없음"
+                    for price_sel in price_selectors:
+                        price_elem = item.select_one(price_sel)
+                        if price_elem:
+                            price = price_elem.get_text(strip=True)
+                            break
+                    product_data = {
+                        "prod_name": product_name,
+                        "price": price,
+                        "volume": "용량 정보 없음",
+                        "search_term": search_term
+                    }
+                    products.append(product_data)
+                except Exception:
+                    continue
+        
+        return products
+    except Exception:
         return []
 
 def crawl_similar_products_by_category(category, selected_volume, max_products=5):
@@ -297,7 +342,11 @@ def render():
     # Step 1: 원본 상품의 용량별 옵션 크롤링
     if st.session_state.step == 1:
         st.subheader("📋 1단계: 원본 상품 분석")
-        st.json(product_info)
+        # st.json(product_info)
+        
+        st.write("**제품명:**", product_info["product_name"])
+        st.write("**회사 명:**", product_info["company_name"])
+        st.write("**검색 키워드:**", product_info["search_keyword"])
         
         # 입력한 상품 정보를 original_product 폴더에 저장
         original_filename = f"my-app/original_product/input_product_{int(time.time())}.json"
@@ -311,11 +360,16 @@ def render():
         st.success(f"📁 입력 상품 정보가 '{original_filename}' 파일에 저장되었습니다.")
         
         st.subheader(f"🔍 '{main_product['prod_name']}' 용량별 옵션 검색")
-        
-        if st.button("🚀 용량별 옵션 크롤링 시작"):
+
+        if 'original_products' not in st.session_state or st.session_state.original_products is None:
             with st.spinner("용량별 상품 옵션을 검색 중입니다..."):
                 search_term = main_product['search_keyword'] or main_product['prod_name']
                 original_products = crawl_original_product_volumes(search_term, max_products=3)
+        
+        # if st.button("🚀 용량별 옵션 크롤링 시작"):
+        #     with st.spinner("용량별 상품 옵션을 검색 중입니다..."):
+        #         search_term = main_product['search_keyword'] or main_product['prod_name']
+        #         original_products = crawl_original_product_volumes(search_term, max_products=3)
                 
                 if original_products:
                     st.session_state.original_products = original_products

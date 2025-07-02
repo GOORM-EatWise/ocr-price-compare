@@ -2,12 +2,13 @@ import streamlit as st
 import traceback
 import os
 import cv2
-import pandas as pd
+import json
+import difflib
 from ocr.paddle_ocr import run_ocr
 from preprocessing.preprocess import preprocess_image, detect_and_draw_rectangles
 from utils.ocr_utils import ocr_quality_score
 from llm.promt_to_json import get_product_info_from_ocr
-import difflib
+
 
 def price_score(texts):
     import re
@@ -28,7 +29,7 @@ def price_score(texts):
     if price_pattern.search(full):
         score += 2
 
-    #  단위 키워드
+    # 단위 키워드
     if any(u in full for u in ['g', 'ml', '개당', 'kg', '당']):
         score += 1
 
@@ -42,7 +43,6 @@ def price_score(texts):
 
     for t in lowered_texts:
         for nk in nutrition_keywords:
-            # 유사도가 0.8 이상이면 감점
             if difflib.SequenceMatcher(None, t, nk).ratio() > 0.8:
                 score -= 3
                 break
@@ -53,22 +53,19 @@ def price_score(texts):
 def render():
     if 'img_to_analysis_done' not in st.session_state:
         st.session_state.img_to_analysis_done = False
-        
+
     if 'result_text' not in st.session_state:
         st.session_state.result_text = []
 
-    font_path = 'C:/Windows/Fonts/malgun.ttf' 
-    
+    font_path = 'C:/Windows/Fonts/malgun.ttf'
+
     if not st.session_state.img_to_analysis_done:
-        st.title("로딩 중....")
-        
-        with st.spinner("이미지를 분석 중입니다..."):
+        with st.spinner("텍스트 추출 중입니다..."):
             try:
                 img = st.session_state.image
 
-                # 1. 사각형(ROI) 추출
+                # 1. ROI 감지 및 OCR 점수 평가
                 rects, crops = detect_and_draw_rectangles(img)
-
                 best_crop = None
                 best_score = -1
                 best_ocr_data = []
@@ -83,7 +80,7 @@ def render():
                         best_crop = crop_img
                         best_ocr_data = ocr_data
 
-                # 2. ROI가 없거나 점수 ≤ 1이면 → 원본 사용
+                # 2. ROI 없거나 점수 낮으면 원본으로 OCR
                 if not crops or best_score <= 1:
                     best_crop = img
                     ori_text, _ = run_ocr(
@@ -95,7 +92,6 @@ def render():
                     ori_text = best_ocr_data
                     os.makedirs('my-app/json', exist_ok=True)
                     with open('my-app/json/ocr_result.json', 'w', encoding='utf-8') as f:
-                        import json
                         json.dump(ori_text, f, ensure_ascii=False, indent=2)
 
                 # 3. 전처리 후 OCR
@@ -106,7 +102,6 @@ def render():
                     save_annotated='my-app/annotated_proc/annotated.jpg'
                 )
 
-                # ✅ 전처리 결과 무조건 사용
                 st.session_state.result_text = proc_text
 
             except Exception as e:
@@ -118,6 +113,7 @@ def render():
                 st.session_state.img_to_analysis_done = True
                 st.rerun()
 
+    # 4. 결과 LLM 추론 및 표시
     ocr_texts = [item["text"] for item in st.session_state.result_text]
     product_info = get_product_info_from_ocr(ocr_texts, save_path='my-app/llm_json/llm_result.json')
 
@@ -136,5 +132,13 @@ def render():
         st.write(product_info.get("company_name", "—"))
         st.write(product_info.get("search_keyword", "—"))
 
-    if st.button('다음으로'):
-        st.session_state.page = 'crawling'
+    st.markdown("---")
+    st.write("### 분석하려는 상품이 맞습니까?")
+
+    col_yes, col_no = st.columns(2)
+    with col_yes:
+        if st.button('예'):
+            st.session_state.page = 'crawling'
+    with col_no:
+        if st.button('아니오'):
+            st.session_state.page = 'image_upload_option'

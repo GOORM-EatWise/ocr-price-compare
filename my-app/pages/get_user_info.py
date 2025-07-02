@@ -1,23 +1,28 @@
 import streamlit as st
+from PIL import Image
 
 def render():
-    # st.title('정보를 입력해주세요')
+    
+    img = Image.open('my-app/thumbnails/EatWise_logo.png')
+    img = img.resize((200, 200))
+    
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.image(img)
     
     st.markdown("""
-    ## 🍎 EatWise에 오신 것을 환영합니다!
+                ## EatWise에 오신 것을 환영합니다!
+    """)   
     
-    **EatWise**는 상품 가격표를 촬영하면 자동으로 영양성분과 가격을 
-    비슷한 제품들과 비교 분석해주는 스마트 쇼핑 도우미입니다.
+    st.markdown("👇EatWise가 궁금하시면")
     
-    ### ✨ 주요 기능
-    - 📸 **이미지 인식**: 상품 가격표 촬영으로 OCR을 통한 상품 Text 추출
-    - 🤖 **AI 텍스트 분류**: LLM을 활용하여 추출된 텍스트에서 상품명, 영양성분 등을 자동 분류
-    - 🔍 **영양성분 분석**: 개인 맞춤형 영양 정보 제공
-    - 💰 **가격 비교**: 다양한 쇼핑몰의 최저가 검색
+    if st.button('EatWise란?', key='to_eatwise_info'):
+        st.session_state.page = 'eatwise_info'
     
+    st.markdown("""
     아래 정보를 입력하시면 더 정확한 맞춤 분석을 받으실 수 있습니다.
     """)    
-    
+
     user_name = st.text_input('이름', value="User")
     gender = st.selectbox('성별', ['남', '여'])
     height = st.number_input('키(cm 단위로 숫자만 입력해주세요)', min_value=0, value=165)
@@ -31,6 +36,6 @@ def render():
     st.session_state.user_info['gender'] = gender
     st.session_state.user_info['height'] = height
     st.session_state.user_info['weight'] = weight
-
+    
     if st.button('다음', key='to_image_upload_option'):
         st.session_state.page = 'image_upload_option'

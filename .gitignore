@@ -1,0 +1,28 @@
+# environment variables
+.env
+
+# python virtual environment
+.venv/
+
+# pycache
+*.pyc
+__pycache__/
+
+# metadata in macOS
+.DS_Store
+
+# sqlite data
+db.sqlite3
+
+# 데이터 및 결과 폴더 (OCR, 크롤링 등)
+data/
+output/
+json/
+llm_json/
+danawa_product/
+original_product/
+my-app/assets/raw/
+my-app/assets/processed/
+
+# Jupyter 자동 저장 체크포인트
+.ipynb_checkpoints/

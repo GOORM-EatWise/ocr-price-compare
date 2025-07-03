@@ -15,29 +15,23 @@ def price_score(texts):
     full = " ".join(texts).lower()
     score = 0
 
-    # 핵심 키워드
     if any(k in full for k in ['원', '₩', '할인', 'sale', '%', '기획']):
         score += 2
 
-    # 숫자 포함 비율
     digit_ratio = sum(1 for t in texts if any(c.isdigit() for c in t)) / max(len(texts), 1)
     if digit_ratio > 0.3:
         score += 1
 
-    # 가격형 패턴
     price_pattern = re.compile(r'[\d,]+원|[\d,]{3,5}')
     if price_pattern.search(full):
         score += 2
 
-    # 단위 키워드
     if any(u in full for u in ['g', 'ml', '개당', 'kg', '당']):
         score += 1
 
-    # 숫자 + 단위 조합
     if digit_ratio > 0.2 and any(u in full for u in ['g', '원']):
         score += 1
 
-    # 감점: 유사한 영양성분 키워드 포함 시
     nutrition_keywords = ['콜레스테롤', '나트륨', '단백질', '탄수화물', '포화지방', '지방', '당류', '열량', '칼로리']
     lowered_texts = [t.lower() for t in texts]
 
@@ -51,6 +45,36 @@ def price_score(texts):
 
 
 def render():
+    # CSS 추가
+    st.markdown("""
+    <style>
+        .confirm-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .confirm-buttons button {
+            font-size: 20px !important;
+            font-weight: 600 !important;
+            padding: 1rem 2rem !important;
+            border-radius: 12px !important;
+            width: 180px;
+        }
+        .stButton>button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.6);
+        }
+        .info-line {
+            font-size: 20px !important;
+            font-weight: 600 !important;
+            color: #213d85 !important;
+            margin-bottom: 16px;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+
     if 'img_to_analysis_done' not in st.session_state:
         st.session_state.img_to_analysis_done = False
 
@@ -60,11 +84,10 @@ def render():
     font_path = 'C:/Windows/Fonts/malgun.ttf'
 
     if not st.session_state.img_to_analysis_done:
-        with st.spinner("텍스트 추출 중입니다..."):
+            # 이미지 분석 로직
             try:
                 img = st.session_state.image
 
-                # 1. ROI 감지 및 OCR 점수 평가
                 rects, crops = detect_and_draw_rectangles(img)
                 best_crop = None
                 best_score = -1
@@ -80,7 +103,6 @@ def render():
                         best_crop = crop_img
                         best_ocr_data = ocr_data
 
-                # 2. ROI 없거나 점수 낮으면 원본으로 OCR
                 if not crops or best_score <= 1:
                     best_crop = img
                     ori_text, _ = run_ocr(
@@ -94,7 +116,6 @@ def render():
                     with open('my-app/json/ocr_result.json', 'w', encoding='utf-8') as f:
                         json.dump(ori_text, f, ensure_ascii=False, indent=2)
 
-                # 3. 전처리 후 OCR
                 proc_img = preprocess_image(best_crop)
                 proc_text, _ = run_ocr(
                     proc_img, font_path,
@@ -104,7 +125,7 @@ def render():
 
                 st.session_state.result_text = proc_text
 
-            except Exception as e:
+            except Exception:
                 print("⚠️ 이미지 텍스트 변환 실패")
                 traceback.print_exc()
                 st.session_state.page = 'image_upload_option'
@@ -113,37 +134,27 @@ def render():
                 st.session_state.img_to_analysis_done = True
                 st.rerun()
 
-    # 4. 결과 LLM 추론 및 표시
     ocr_texts = [item["text"] for item in st.session_state.result_text]
     product_info = get_product_info_from_ocr(ocr_texts, save_path='my-app/llm_json/llm_result.json')
 
     st.session_state.ocr_texts = ocr_texts
     st.session_state.product_info = product_info
 
-    st.header("추출된 상품 상세정보")
+    st.header("📦 추출된 상품 상세정보")
 
-    st.write("**제품명:**", product_info.get("product_name", "—"))
-    st.write("**회사 명:**", product_info.get("company_name", "—"))
-    st.write("**검색 키워드:**", product_info.get("search_keyword", "—"))
-
-    # col1, col2 = st.columns([1, 2])
-    # with col1:
-    #     st.write("**제품명:**")
-    #     st.write("**회사 명:**")
-    #     st.write("**검색 키워드:**")
-    # with col2:
-    #     st.write(product_info.get("product_name", "—"))
-    #     st.write(product_info.get("company_name", "—"))
-    #     st.write(product_info.get("search_keyword", "—"))
+    st.markdown('<h4>✅ 분석 결과</h4>', unsafe_allow_html=True)
+    st.markdown(f'<div class="info-line">• <b>제품명:</b> {product_info.get("product_name", "—")}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="info-line">• <b>회사 명:</b> {product_info.get("company_name", "—")}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="info-line">• <b>검색 키워드:</b> {product_info.get("search_keyword", "—")}</div>', unsafe_allow_html=True)
 
     st.markdown("---")
-    st.write("### 분석하려는 상품이 맞습니까?")
+    st.subheader("🧐 분석하려는 상품이 맞습니까?")
 
-    col_yes, col_no = st.columns(2)
-    with col_yes:
-        if st.button('예'):
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("✅ 예"):
             st.session_state.page = 'crawling'
-    with col_no:
-        if st.button('아니오'):
+    with col2:
+        if st.button("🔄 아니오"):
             st.session_state.clear()
             st.session_state.page = 'image_upload_option'

@@ -7,6 +7,7 @@ from pages import camera
 from pages import img_to_analysis
 from pages import crawling
 from pages import result
+from pages import db
 
 # 페이지 이름과 표시할 카테고리 이름 매핑
 page_names = [
@@ -17,7 +18,8 @@ page_names = [
     'camera',
     'img_to_analysis',
     'crawling',
-    'result'
+    'result',
+    'db'
 ]
 
 page_labels = [
@@ -28,7 +30,8 @@ page_labels = [
     '📸 카메라 촬영',
     '🔍 이미지 분석',
     '🌐 크롤링',
-    '📊 결과 보기'
+    '📊 결과 보기',
+    '💾 데이터베이스'
 ]
 
 # 사이드바에 카테고리 메뉴 생성
@@ -74,3 +77,5 @@ elif st.session_state.page == 'crawling':
     crawling.render()
 elif st.session_state.page == 'result':
     result.render()
+elif st.session_state.page == 'db':
+    db.render()

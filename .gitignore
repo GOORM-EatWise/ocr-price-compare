@@ -27,3 +27,7 @@ my-app/danawa_product/
 
 # Jupyter 자동 저장 체크포인트
 .ipynb_checkpoints/
+
+
+# db key
+eatwise-4dfe3-firebase-adminsdk-fbsvc-4b7495f398.json

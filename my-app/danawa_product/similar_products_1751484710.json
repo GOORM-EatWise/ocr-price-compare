@@ -1,0 +1,95 @@
+{
+  "selected_product": {
+    "prod_name": "롯데웰푸드크런키34g",
+    "price": "690",
+    "volume": "34g",
+    "search_term": "크런키",
+    "nutrition_info": {
+      "칼로리": "276kcal",
+      "단백질": "3g",
+      "지방": "11g",
+      "탄수화물": "39g",
+      "당분": "21g",
+      "나트륨": "99mg"
+    }
+  },
+  "category": "롯데웰푸드 크런키",
+  "similar_products": [
+    {
+      "prod_name": "롯데웰푸드크런키34g",
+      "price": "690",
+      "volume": "34g",
+      "category": "롯데웰푸드 크런키",
+      "nutrition": {
+        "칼로리": "297kcal",
+        "단백질": "4g",
+        "지방": "0g",
+        "탄수화물": "14g",
+        "당분": "8g",
+        "나트륨": "93mg"
+      },
+      "selected_volume_reference": "34g"
+    },
+    {
+      "prod_name": "롯데웰푸드미니크런키171g",
+      "price": "4,560",
+      "volume": "171g",
+      "category": "롯데웰푸드 크런키",
+      "nutrition": {
+        "칼로리": "158kcal",
+        "단백질": "7g",
+        "지방": "0g",
+        "탄수화물": "38g",
+        "당분": "0g",
+        "나트륨": "16mg"
+      },
+      "selected_volume_reference": "34g"
+    },
+    {
+      "prod_name": "롯데웰푸드크런키빼빼로 4개입 140g",
+      "price": "4,110",
+      "volume": "140g",
+      "category": "롯데웰푸드 크런키",
+      "nutrition": {
+        "칼로리": "262kcal",
+        "단백질": "9g",
+        "지방": "13g",
+        "탄수화물": "21g",
+        "당분": "0g",
+        "나트륨": "42mg"
+      },
+      "selected_volume_reference": "34g"
+    },
+    {
+      "prod_name": "롯데웰푸드크런키볼 76g",
+      "price": "2,020",
+      "volume": "76g",
+      "category": "롯데웰푸드 크런키",
+      "nutrition": {
+        "칼로리": "74kcal",
+        "단백질": "6g",
+        "지방": "14g",
+        "탄수화물": "23g",
+        "당분": "7g",
+        "나트륨": "12mg"
+      },
+      "selected_volume_reference": "34g"
+    },
+    {
+      "prod_name": "롯데웰푸드크런키더블 크런치바 미니 361g",
+      "price": "10,070",
+      "volume": "361g",
+      "category": "롯데웰푸드 크런키",
+      "nutrition": {
+        "칼로리": "115kcal",
+        "단백질": "4g",
+        "지방": "14g",
+        "탄수화물": "27g",
+        "당분": "15g",
+        "나트륨": "141mg"
+      },
+      "selected_volume_reference": "34g"
+    }
+  ],
+  "timestamp": "2025-07-03 04:31:50"
+}

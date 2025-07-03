@@ -1,0 +1,20 @@
+# environment variables
+.env
+
+# python virtual environment
+.venv/
+# pycache
+*.pyc
+__pycache__/
+
+#keys
+db/__MACOSX/
+db/*.json
+# metadata in macOS
+.DS_Store
+
+# sqlite data
+db.sqlite3
+
+# Jupyter 자동 저장 체크포인트
+.ipynb_checkpoints/

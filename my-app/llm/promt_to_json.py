@@ -51,7 +51,7 @@ def get_product_info_from_ocr(ocr_text_list, save_path='my-app/data/llm_info.jso
         텍스트: {ocr_text_list}
         """
 
-        model = genai.GenerativeModel("models/gemini-1.5-flash")
+        model = genai.GenerativeModel("models/gemini-2.5-flash")
         response = model.generate_content(prompt)
         content = response.text.strip()
 

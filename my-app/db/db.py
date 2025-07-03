@@ -59,6 +59,7 @@ def get_current_temp_user():
 
 
 def add_user_info(user_dict):
+    fc = firebase_init()
     user_ref = fc.collection("user_info")
     user_ref.add(user_dict)
     df = get_user_info()
@@ -68,6 +69,7 @@ def add_user_info(user_dict):
 
 def get_user_info():
     """    유저 정보 불러오기    """
+    fc = firebase_init()
     columns = pd.Index(["아이디", "이름", "성별", "키", "몸무게", "나이"])
     user_df = pd.DataFrame(columns=columns)
     
@@ -147,6 +149,7 @@ def add_product_info():
     
 
 def get_product_info():
+    fc = firebase_init()
     delete_duplicated_product()
     product_ref = fc.collection("products_info")
     product_list = product_ref.get()
@@ -165,6 +168,7 @@ def get_product_info():
 
 
 def delete_duplicated_product():
+    fc = firebase_init()
     product_ref = fc.collection("products_info")
     product_list = product_ref.get()
     seen_products = set()
@@ -202,6 +206,7 @@ def delete_duplicated_product():
 
 
 def add_favorite_product(favorite_prod_idx):
+    fc = firebase_init()
     product_df = get_product_info()
     favorite_product = product_df.iloc[favorite_prod_idx]
     # favorite_product['user_id'] = st.session_state.user_info['user_id']
@@ -214,6 +219,7 @@ def add_favorite_product(favorite_prod_idx):
 
     
 def get_favorite_product():
+    fc = firebase_init()
     favorite_product_ref = fc.collection("favorite_products")
     product_list = favorite_product_ref.get()
     product_df = pd.DataFrame([product.to_dict() for product in product_list])
@@ -233,8 +239,12 @@ def get_favorite_product():
     return current_user_id, product_df
 
 def delete_favorite_product(prod_name):
-    # user_id = st.session_state.user_info['user_id']
-    user_id = "gf8LZeek4EYDUtdnqC6A" # 임시로 강제 지정
+    fc = firebase_init()
+    
+    user_id = st.session_state.user_info['user_id']
+    if user_id is None:
+        user_id = "gf8LZeek4EYDUtdnqC6A" # 임시로 강제 지정
+        
     favorite_product_ref = fc.collection("favorite_products")
     product_list = favorite_product_ref.where('user_id', '==', user_id).get()
     for product in product_list:
@@ -244,71 +254,73 @@ def delete_favorite_product(prod_name):
     return True
 
 
+def render():
+    st.title("🍎 DB 관리")
 
-# 파이어베이스 클라이언트 초기화
-fc = st.session_state.firebase_client = firebase_init()
-user_ref = fc.collection("user_info") # 유저 정보 컬렉션 참조
+    # 파이어베이스 클라이언트 초기화
+    fc = firebase_init()
+    user_ref = fc.collection("user_info") # 유저 정보 컬렉션 참조
 
-# 삭제 폼 및 유저 정보 추가 폼  
-st.markdown("### 고객 정보")
+    # 삭제 폼 및 유저 정보 추가 폼  
+    st.markdown("### 고객 정보")
 
-with st.form(key="user_info_form", clear_on_submit=True):
-    st.dataframe(get_user_info())
-    col1, col2 = st.columns(2)
-    with col1:
-        st.dataframe(pd.DataFrame([get_current_temp_user()]))
-        submit_add = st.form_submit_button("현재 고객 추가")
-        if submit_add:
-            user_dict = get_current_temp_user()
-            user_id = add_user_info(user_dict)
-            st.success(f"아이디 '{user_id}'의 고객 정보가 추가되었습니다.")
-            # 페이지를 다시 로드하여 데이터 갱신
-            st.rerun()
-
-    with col2:
-        user_id = st.text_input("삭제할 고객의 아이디를 입력해주세요")
-        submit_delete = st.form_submit_button("고객 정보 삭제")
-
-        if submit_delete and user_id:
-                delete_user(user_id)
-                st.success(f"아이디 '{user_id}'의 고객 정보가 삭제되었습니다.")
+    with st.form(key="user_info_form", clear_on_submit=True):
+        st.dataframe(get_user_info())
+        col1, col2 = st.columns(2)
+        with col1:
+            st.dataframe(pd.DataFrame([get_current_temp_user()]))
+            submit_add = st.form_submit_button("현재 고객 추가")
+            if submit_add:
+                user_dict = get_current_temp_user()
+                user_id = add_user_info(user_dict)
+                st.success(f"아이디 '{user_id}'의 고객 정보가 추가되었습니다.")
                 # 페이지를 다시 로드하여 데이터 갱신
                 st.rerun()
 
-st.divider()
+        with col2:
+            user_id = st.text_input("삭제할 고객의 아이디를 입력해주세요")
+            submit_delete = st.form_submit_button("고객 정보 삭제")
 
-with st.form(key="product_info_form", clear_on_submit=True):
-    st.dataframe(get_product_info())
+            if submit_delete and user_id:
+                    delete_user(user_id)
+                    st.success(f"아이디 '{user_id}'의 고객 정보가 삭제되었습니다.")
+                    # 페이지를 다시 로드하여 데이터 갱신
+                    st.rerun()
 
-    col1, col2 = st.columns(2)
+    st.divider()
 
-    with col1:
-        submit_add = st.form_submit_button("상품 정보 추가", icon="🥙")
-        if submit_add:
-            add_product_info()
-            st.success("상품 정보가 추가되었습니다.")
+    with st.form(key="product_info_form", clear_on_submit=True):
+        st.dataframe(get_product_info())
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            submit_add = st.form_submit_button("상품 정보 추가", icon="🥙")
+            if submit_add:
+                add_product_info()
+                st.success("상품 정보가 추가되었습니다.")
+                # 페이지를 다시 로드하여 데이터 갱신
+                st.rerun()
+        with col2:
+            favorite_product_num = st.number_input("즐겨찾기 상품 번호를 입력해주세요", min_value=0, max_value=10, value=1)
+            submit_add = st.form_submit_button("즐겨찾기 상품 추가")
+            if submit_add:
+                add_favorite_product(int(favorite_product_num))
+                st.success("즐겨찾기 상품이 추가되었습니다.")
+                # 페이지를 다시 로드하여 데이터 갱신
+                st.rerun()
+
+    st.divider()  
+
+    with st.form(key="favorite_product_form", clear_on_submit=True):
+        favorite_product_name = st.text_input("삭제할 즐겨찾기 상품 이름을 입력해주세요")
+        submit_delete = st.form_submit_button("즐겨찾기 상품 삭제")
+        if submit_delete and favorite_product_name:
+            delete_favorite_product(favorite_product_name)
+            st.success("즐겨찾기 상품이 삭제되었습니다.")
             # 페이지를 다시 로드하여 데이터 갱신
             st.rerun()
-    with col2:
-        favorite_product_num = st.number_input("즐겨찾기 상품 번호를 입력해주세요", min_value=0, max_value=10, value=1)
-        submit_add = st.form_submit_button("즐겨찾기 상품 추가")
-        if submit_add:
-            add_favorite_product(int(favorite_product_num))
-            st.success("즐겨찾기 상품이 추가되었습니다.")
-            # 페이지를 다시 로드하여 데이터 갱신
-            st.rerun()
 
-st.divider()  
-
-with st.form(key="favorite_product_form", clear_on_submit=True):
-    favorite_product_name = st.text_input("삭제할 즐겨찾기 상품 이름을 입력해주세요")
-    submit_delete = st.form_submit_button("즐겨찾기 상품 삭제")
-    if submit_delete and favorite_product_name:
-        delete_favorite_product(favorite_product_name)
-        st.success("즐겨찾기 상품이 삭제되었습니다.")
-        # 페이지를 다시 로드하여 데이터 갱신
-        st.rerun()
-
-    current_user_id, favorite_product_df = get_favorite_product()
-    st.write(f"{current_user_id} 님의 즐겨찾기 상품")
-    st.dataframe(favorite_product_df)
+        current_user_id, favorite_product_df = get_favorite_product()
+        st.write(f"{current_user_id} 님의 즐겨찾기 상품")
+        st.dataframe(favorite_product_df)

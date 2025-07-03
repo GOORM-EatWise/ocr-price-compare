@@ -1,0 +1,23 @@
+{
+  "input_product_info": {
+    "product_name": "오븐&통그릴 델리햄",
+    "company_name": "동원",
+    "product_type": "가공육",
+    "search_keyword": "동원 오븐&통그릴 델리햄"
+  },
+  "extracted_products": [
+    {
+      "prod_name": "오븐&통그릴 델리햄",
+      "product_category": "가공육",
+      "brand": "",
+      "search_keyword": "동원 오븐&통그릴 델리햄",
+      "original_item": {
+        "product_name": "오븐&통그릴 델리햄",
+        "company_name": "동원",
+        "product_type": "가공육",
+        "search_keyword": "동원 오븐&통그릴 델리햄"
+      }
+    }
+  ],
+  "timestamp": "2025-07-03 09:26:27"
+}

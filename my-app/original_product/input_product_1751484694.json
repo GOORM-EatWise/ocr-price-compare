@@ -1,0 +1,23 @@
+{
+  "input_product_info": {
+    "product_name": "크런키",
+    "company_name": "롯데웰푸드",
+    "product_type": "과자",
+    "search_keyword": "롯데웰푸드 크런키"
+  },
+  "extracted_products": [
+    {
+      "prod_name": "크런키",
+      "product_category": "과자",
+      "brand": "",
+      "search_keyword": "롯데웰푸드 크런키",
+      "original_item": {
+        "product_name": "크런키",
+        "company_name": "롯데웰푸드",
+        "product_type": "과자",
+        "search_keyword": "롯데웰푸드 크런키"
+      }
+    }
+  ],
+  "timestamp": "2025-07-03 04:31:34"
+}

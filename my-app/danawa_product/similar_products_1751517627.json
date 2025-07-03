@@ -1,0 +1,95 @@
+{
+  "selected_product": {
+    "prod_name": "매일유업바이오락토프리그릭요거트무가당 플레인 400g",
+    "price": "3,220",
+    "volume": "400g",
+    "search_term": "바이오 그릭요거트 2입기획",
+    "nutrition_info": {
+      "칼로리": "142kcal",
+      "단백질": "9g",
+      "지방": "5g",
+      "탄수화물": "7g",
+      "당분": "7g",
+      "나트륨": "40mg"
+    }
+  },
+  "category": "매일 바이오 그릭요거트",
+  "similar_products": [
+    {
+      "prod_name": "매일유업바이오락토프리그릭요거트무가당 플레인 400g",
+      "price": "3,220",
+      "volume": "400g",
+      "category": "매일 바이오 그릭요거트",
+      "nutrition": {
+        "칼로리": "101kcal",
+        "단백질": "12g",
+        "지방": "0g",
+        "탄수화물": "9g",
+        "당분": "3g",
+        "나트륨": "80mg"
+      },
+      "selected_volume_reference": "400g"
+    },
+    {
+      "prod_name": "매일유업바이오그릭요거트오리지널 플레인 80g",
+      "price": "3,290",
+      "volume": "80g",
+      "category": "매일 바이오 그릭요거트",
+      "nutrition": {
+        "칼로리": "84kcal",
+        "단백질": "8g",
+        "지방": "7g",
+        "탄수화물": "13g",
+        "당분": "10g",
+        "나트륨": "37mg"
+      },
+      "selected_volume_reference": "400g"
+    },
+    {
+      "prod_name": "매일유업바이오그릭요거트플레인 800g",
+      "price": "6,010",
+      "volume": "800g",
+      "category": "매일 바이오 그릭요거트",
+      "nutrition": {
+        "칼로리": "124kcal",
+        "단백질": "11g",
+        "지방": "8g",
+        "탄수화물": "7g",
+        "당분": "6g",
+        "나트륨": "31mg"
+      },
+      "selected_volume_reference": "400g"
+    },
+    {
+      "prod_name": "매일유업바이오그릭요거트무가당 플레인 800g 2개",
+      "price": "13,280",
+      "volume": "800g",
+      "category": "매일 바이오 그릭요거트",
+      "nutrition": {
+        "칼로리": "133kcal",
+        "단백질": "8g",
+        "지방": "2g",
+        "탄수화물": "12g",
+        "당분": "12g",
+        "나트륨": "45mg"
+      },
+      "selected_volume_reference": "400g"
+    },
+    {
+      "prod_name": "매일유업매일바이오그릭요거트to go 플레인 120g",
+      "price": "1,550",
+      "volume": "120g",
+      "category": "매일 바이오 그릭요거트",
+      "nutrition": {
+        "칼로리": "148kcal",
+        "단백질": "10g",
+        "지방": "4g",
+        "탄수화물": "8g",
+        "당분": "5g",
+        "나트륨": "50mg"
+      },
+      "selected_volume_reference": "400g"
+    }
+  ],
+  "timestamp": "2025-07-03 13:40:27"
+}

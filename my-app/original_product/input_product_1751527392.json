@@ -1,0 +1,23 @@
+{
+  "input_product_info": {
+    "product_name": "바이오 그릭요거트 2입 기획",
+    "company_name": "매일유업",
+    "product_type": "요거트",
+    "search_keyword": "매일 바이오 그릭요거트"
+  },
+  "extracted_products": [
+    {
+      "prod_name": "바이오 그릭요거트 2입 기획",
+      "product_category": "요거트",
+      "brand": "",
+      "search_keyword": "매일 바이오 그릭요거트",
+      "original_item": {
+        "product_name": "바이오 그릭요거트 2입 기획",
+        "company_name": "매일유업",
+        "product_type": "요거트",
+        "search_keyword": "매일 바이오 그릭요거트"
+      }
+    }
+  ],
+  "timestamp": "2025-07-03 16:23:12"
+}

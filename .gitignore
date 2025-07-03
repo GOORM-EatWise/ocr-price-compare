@@ -8,22 +8,15 @@
 *.pyc
 __pycache__/
 
+#keys
+db/__MACOSX/
+db/*.json
+
 # metadata in macOS
 .DS_Store
 
 # sqlite data
 db.sqlite3
-
-# 데이터 및 결과 폴더 (OCR, 크롤링 등)
-my-app/json/
-my-app/json_proc/
-my-app/llm_json/
-my-app/annotaed/
-my-app/annotaed_proc/
-my-app/sample/
-my-app/assets/
-my-app/original_product/
-my-app/danawa_product/
 
 # Jupyter 자동 저장 체크포인트
 .ipynb_checkpoints/

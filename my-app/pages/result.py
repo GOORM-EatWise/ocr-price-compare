@@ -14,6 +14,9 @@ from plotly.subplots import make_subplots
 import re
 import os
 from datetime import datetime
+import google.generativeai as genai 
+from dotenv import load_dotenv
+
 
 # my-app 폴더 기준 경로
 BASE_DIR = os.path.dirname(__file__)            # my-app/pages/result.py 에서 불러온다면 BASE_DIR은 my-app/pages
@@ -21,6 +24,77 @@ BASE_DIR = os.path.normpath(os.path.join(BASE_DIR, '..'))  # 한 단계 위(my-a
 
 ORIG_DIR   = os.path.join(BASE_DIR, 'original_product')
 DANAWA_DIR = os.path.join(BASE_DIR, 'danawa_product')
+
+load_dotenv()
+
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+
+def recommend_products_with_llm(ocr_info: dict, user_info: dict, similar_products: list) -> dict:
+    """
+    Gemini API를 사용해 OCR로 추출한 상품 정보와 사용자 정보를 바탕으로
+    data에서 추천 상품 3개와 최종 추천 1개, 추천 이유를 JSON으로 반환
+    """
+    # similar_products가 너무 길면 일부만 표시
+    # similar_products_for_prompt = data[:10] if len(data) > 10 else data
+    product_names = ', '.join([item.get('name', '') for item in ocr_info])
+    product_volumes = ', '.join([item.get('volume', '') for item in ocr_info])
+    
+    prompt = (
+        f"다음은 OCR로 추출한 상품 정보입니다.\n"
+        
+        #f"상품명: {st.session_state.original_products.get('product_name','')}\n"       
+        #f"용량: {st.session_state.original_products.get('volume','')}\n\n"     
+        
+        f"상품명: {product_names}\n"
+        f"용량: {product_volumes}\n\n"
+        
+        f"사용자 정보는 다음과 같습니다.\n"
+        f"이름: {user_info.get('user_name','')}\n"
+        f"성별: {user_info.get('gender','')}\n"
+        f"키: {user_info.get('height','')}\n"
+        f"몸무게: {user_info.get('weight','')}\n"
+        f"나이: {user_info.get('age','')}\n\n"
+        f"아래는 추천 가능한 상품 데이터 일부입니다.\n"
+        f"{similar_products}\n\n"
+        f"1. OCR로 추출한 상품과 유사한 카테고리의 정보가 st.session_state.selected_product에 저장되어 있습니다.\n"
+        f"2. 사용자 정보(성별, 키, 몸무게, 나이)를 바탕으로 BMI를 계산해주고, 가격과 영양성분(칼로리, 단백질, 지방, 탄수화물, 당분, 나트륨 등)을 고려해 OCR로 추출한 상품 1개와 비교 상품 4개를 선정해주세요. \n"
+        f"3. 사용자 정보를 바탕으로 5개의 상품 중 최종 추천상품 1개를 선정하고, 그 이유를 설명해주세요.\n"
+        f"아래와 같은 JSON 형식으로 답변해주세요.\n"
+        f'{{"추천상품": [{{"제품명": "...", "가격": "...", "칼로리": "...", "단백질": "...", "지방": "...", "탄수화물": "...", "당분": "...", "나트륨": "..."}}, ...], "최종추천": {{"상품명": "..."}}, "추천이유": "..."}}'
+    )
+
+    model = genai.GenerativeModel("models/gemini-1.5-flash")
+    response = model.generate_content(prompt)
+    #content = response.text.strip()
+    
+    result_text = response.text.strip()
+    import json, re
+    try:
+        result_json = json.loads(result_text)
+    except Exception:
+        match = re.search(r'\{.*\}', result_text, re.DOTALL)
+        if match:
+            result_json = json.loads(match.group())
+        else:
+            result_json = {"추천상품": [], "최종추천": {}, "추천이유": ""}
+    return result_json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -451,6 +525,17 @@ def render():
             2. **운동 후 보충**: 단백질이 높은 제품
             3. **건강 관리**: 나트륨이 낮고 식이섬유가 높은 제품
             """)
+        
+    #맞춤 분석 코드 추가
+    result = recommend_products_with_llm(st.session_state.original_products, st.session_state.user_info , st.session_state.similar_products)
+    
+    st.subheader("🧬사용자 맞춤 분석")
+    
+    st.markdown("## 추천상품") 
+    st.write(result['최종추천']['상품명'])
+    st.markdown('## 추천이유') 
+    st.write(result['추천이유'])            
+
     
     # 추가 분석 옵션
     st.subheader("🔍 추가 분석")
@@ -508,3 +593,10 @@ def render():
             st.session_state.clear()
             st.session_state.page = 'main_page'
             st.rerun()
+
+    if st.button('DB관리(관리자용)'):
+        st.session_state.page = 'db'
+
+
+
+

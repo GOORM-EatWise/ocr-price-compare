@@ -8,6 +8,108 @@ import re
 import os
 
 
+def styles():
+    st.markdown("""
+        <style>
+            html, body, .stApp {
+                background: linear-gradient(135deg, #f2f6fc, #dce8ff);
+                font-family: 'Segoe UI', sans-serif;
+                font-size: 18px;
+            }
+            h1, h2, h3{
+                color: #2c3e50;
+                margin-bottom: 0.7rem;
+                font-weight: 700;
+                text-align: center;
+            }
+            h4{
+                color: #2c3e50;
+                margin-bottom: 0.7rem;
+                font-weight: 700;
+            }
+            .main-button button {
+                background-color: #3b63c4;
+                color: white;
+                font-weight: 600;
+                border-radius: 10px;
+                padding: 0.8em 3em;
+                font-size: 18px;
+                width: 100%;
+                max-width: 400px;
+                transition: 0.3s ease;
+                display: block;
+                margin: 0 auto;
+            }
+            .main-button button:hover {
+                background-color: #2a4da3;
+                transform: scale(1.02);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            .option-button-container {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            .option-button button {
+                width: 350px;
+                text-align: left;
+                padding: 1.8em 2em;
+                margin: 15px 0;
+                font-size: 18px;
+                border-radius: 16px;
+                background-color: #ffffff;
+                border: 2.5px solid #aabfff;
+                color: #2c3e50;
+                transition: all 0.2s ease-in-out;
+                box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            }
+            .option-button button:hover {
+                background-color: #eef5ff;
+                transform: scale(1.01);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            }
+            .back-button button {
+                background-color: #f0f0f0 !important;
+                color: #333 !important;
+                border: 1.5px solid #bbb !important;
+                font-size: 16px !important;
+                padding: 0.6em 1.2em !important;
+                border-radius: 8px !important;
+                width: 180px;
+                margin: 0 auto;
+                display: block;
+            }
+            .back-button button:hover {
+                background-color: #e0e0e0 !important;
+            }
+            .highlight-box {
+                font-size: 20px;
+                font-weight: 600;
+                color: #213d85;
+                background: #fff;
+                padding: 18px 25px;
+                border-radius: 12px;
+                border: 2px solid #c8d6ff;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .footer-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                margin-top: 30px;
+            }
+            .footer-buttons button {
+                width: 220px;
+                font-size: 17px;
+                padding: 0.8em 1em;
+                border-radius: 10px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+
 def extract_product_info(product_info):
     """product_info JSON에서 product_name과 product_category 추출"""
     extracted_info = []
@@ -285,27 +387,24 @@ def generate_nutrition_info(product_name, category):
         "나트륨": f"{random.randint(10, 200)}mg",
     }
 
-
 def render():
-    st.title("🔍 다나와 상품 분석 시스템")
+    styles()
+    st.markdown("""
+        <h1 style='text-align:center; color:#3b63c4;'>🔍 다나와 상품 분석 시스템</h1>
+        <p style='text-align:center; font-size:17px; color:#333;'>이미지 분석 기반 원본 상품 → 용량 옵션 → 유사 제품까지 한 번에</p>
+    """, unsafe_allow_html=True)
 
-    # 디렉토리 생성
     create_directories()
 
-    # 세션 상태 초기화
     if "step" not in st.session_state:
         st.session_state.step = 1
-
     if "original_products" not in st.session_state:
         st.session_state.original_products = None
-
     if "selected_product" not in st.session_state:
         st.session_state.selected_product = None
-
     if "similar_products" not in st.session_state:
         st.session_state.similar_products = None
 
-    # 상품 정보 확인
     if "product_info" not in st.session_state:
         st.error("❌ 상품 정보가 없습니다. 이전 단계로 돌아가주세요.")
         if st.button("이전 단계로"):
@@ -314,160 +413,102 @@ def render():
 
     product_info = st.session_state.product_info
     extracted_products = extract_product_info(product_info)
-
     if not extracted_products:
         st.error("상품 정보를 추출할 수 없습니다.")
         return
 
-    main_product = extracted_products[0]  # 첫 번째 상품 사용
-
-    # 경로 설정
+    main_product = extracted_products[0]
     file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    # Step 1: 원본 상품의 용량별 옵션 크롤링
     if st.session_state.step == 1:
-        st.subheader("📋 1단계: 원본 상품 분석")
+        st.markdown("""<div class='step-box'><div class='step-title'>📋 1단계: 원본 상품 분석</div>""", unsafe_allow_html=True)
         st.json(product_info)
 
-    # 입력한 상품 정보를 original_product 폴더에 저장
-        original_filename = (
-            f"{file_path}/original_product/input_product_{int(time.time())}.json"
-        )
+        original_filename = f"{file_path}/original_product/input_product_{int(time.time())}.json"
         with open(original_filename, "w", encoding="utf-8") as f:
-            json.dump(
-                {
-                    "input_product_info": product_info,
-                    "extracted_products": extracted_products,
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                },
-                f,
-                ensure_ascii=False,
-                indent=2,
-            )
+            json.dump({
+                "input_product_info": product_info,
+                "extracted_products": extracted_products,
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            }, f, ensure_ascii=False, indent=2)
 
         st.success(f"📁 입력 상품 정보가 '{original_filename}' 파일에 저장되었습니다.")
 
-        st.subheader(f"🔍 '{main_product['prod_name']}' 용량별 옵션 검색")
+        st.markdown(f"""<h4 style='margin-top:30px;'>🔍 '{main_product['prod_name']}' 용량별 옵션 검색</h4>""", unsafe_allow_html=True)
 
+        st.markdown("<div class='main-button'>", unsafe_allow_html=True)
         if st.button("🚀 용량별 옵션 크롤링 시작"):
             with st.spinner("용량별 상품 옵션을 검색 중입니다..."):
-                search_term = (
-                     main_product["prod_name"] or main_product["search_keyword"]
-                )
-                original_products = crawl_original_product_volumes(
-                    search_term, max_products=3
-                )
-
+                search_term = main_product["prod_name"] or main_product["search_keyword"]
+                original_products = crawl_original_product_volumes(search_term, max_products=3)
                 if original_products:
                     st.session_state.original_products = original_products
-
-                    # JSON 파일을 danawa_product 폴더에 저장
-                    danawa_filename = (
-                        f"{file_path}/danawa_product/original_products_{int(time.time())}.json"
-                    )
+                    danawa_filename = f"{file_path}/danawa_product/original_products_{int(time.time())}.json"
                     with open(danawa_filename, "w", encoding="utf-8") as f:
-                        json.dump(
-                            {
-                                "search_term": search_term,
-                                "products": original_products,
-                                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                            },
-                            f,
-                            ensure_ascii=False,
-                            indent=2,
-                        )
+                        json.dump({
+                            "search_term": search_term,
+                            "products": original_products,
+                            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        }, f, ensure_ascii=False, indent=2)
 
-                    st.success(
-                        f"✅ {len(original_products)}개의 용량 옵션을 찾았습니다!"
-                    )
+                    st.success(f"✅ {len(original_products)}개의 용량 옵션을 찾았습니다!")
                     st.success(f"📁 결과가 '{danawa_filename}' 파일에 저장되었습니다.")
                     st.session_state.step = 2
                     st.rerun()
                 else:
                     st.error("용량별 옵션을 찾을 수 없습니다.")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    # Step 2: 용량 선택
     elif st.session_state.step == 2:
-        st.subheader("📦 2단계: 용량 선택")
+        st.markdown("""<h2 style='color:#3456d5; margin-bottom: 1rem; text-align:center;'>📦 2단계: 용량 선택</h2>""", unsafe_allow_html=True)
 
         if st.session_state.original_products:
-            st.write("**발견된 용량 옵션들:**")
-
-            options = []
+            st.markdown("<div class='option-button-container'>", unsafe_allow_html=True)
             for idx, product in enumerate(st.session_state.original_products):
-                option_text = (
-                    f"{product['prod_name']} - {product['volume']} - {product['price']}"
-                )
-                options.append(option_text)
-                st.write(f"{idx+1}. **{product['prod_name']}**")
-                st.write(f"   - 용량: {product['volume']}")
-                st.write(f"   - 가격: {product['price']}")
-                st.write("---")
+                btn_label = f"🔹 {idx+1}. {product['prod_name']}\n\n📦 용량: {product['volume']}    💰 가격: {product['price']}"
+                if st.button(btn_label, key=f"option_btn_{idx}", help="이 상품을 선택합니다"):
+                    st.session_state.selected_product = product
+                    st.session_state.step = 3
+                    st.rerun()
+            st.markdown("</div>", unsafe_allow_html=True)
 
-            # 사용자 선택
-            selected_idx = st.selectbox(
-                "비교 분석할 상품을 선택하세요:",
-                range(len(options)),
-                format_func=lambda x: f"옵션 {x+1}: {st.session_state.original_products[x]['volume']}",
-            )
-
-            st.session_state.selected_original_product_index = selected_idx
-
-            if st.button("선택 완료"):
-                st.session_state.selected_product = st.session_state.original_products[
-                    selected_idx
-                ]
-                st.session_state.step = 3
-                st.rerun()
-
-        if st.button("이전 단계로"):
+        st.markdown("<div class='back-button'>", unsafe_allow_html=True)
+        if st.button("⬅ 이전 단계로"):
             st.session_state.step = 1
             st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    # Step 3: 유사 상품 크롤링
     elif st.session_state.step == 3:
-        st.subheader("🔍 3단계: 유사 상품 분석")
+        st.markdown("""<h2 style='color:#3456d5; margin-bottom: 1rem;'>🔍 3단계: 유사 상품 분석</h2>""", unsafe_allow_html=True)
 
         selected = st.session_state.selected_product
-        st.write(f"**선택된 상품**: {selected['prod_name']}")  # type: ignore
-        st.write(f"**용량**: {selected['volume']}")  # type: ignore
-        st.write(f"**가격**: {selected['price']}")  # type: ignore
-        
+        st.markdown(f"""
+            <div class='highlight-box'>
+                ✅ 선택된 상품: {selected['prod_name']}<br>
+                📦 용량: {selected['volume']} &nbsp;&nbsp; 💰 가격: {selected['price']}
+            </div>
+        """, unsafe_allow_html=True)
 
         if st.button("🚀 유사 상품 크롤링 시작"):
             with st.spinner("카테고리 기반 유사 상품을 검색 중입니다..."):
                 category = main_product["search_keyword"]
-                selected_volume = selected["volume"]  # type: ignore
-
-                similar_products = crawl_similar_products_by_category(
-                    category, selected_volume, max_products=5
-                )
+                selected_volume = selected["volume"]
+                similar_products = crawl_similar_products_by_category(category, selected_volume, max_products=5)
 
                 if similar_products:
                     st.session_state.similar_products = similar_products
-
-                    # JSON 파일을 danawa_product 폴더에 저장
-                    danawa_filename = (
-                        f"{file_path}/danawa_product/similar_products_{int(time.time())}.json"
-                    )
-                    comparison_data = {
-                        "selected_product": selected,
-                        "category": category,
-                        "similar_products": similar_products,
-                        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                    }
-
+                    danawa_filename = f"{file_path}/danawa_product/similar_products_{int(time.time())}.json"
                     with open(danawa_filename, "w", encoding="utf-8") as f:
-                        json.dump(comparison_data, f, ensure_ascii=False, indent=2)
+                        json.dump({
+                            "selected_product": selected,
+                            "category": category,
+                            "similar_products": similar_products,
+                            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        }, f, ensure_ascii=False, indent=2)
 
-                    st.success(
-                        f"✅ {len(similar_products)}개의 유사 상품을 찾았습니다!"
-                    )
-                    st.success(
-                        f"📁 비교 데이터가 '{danawa_filename}' 파일에 저장되었습니다."
-                    )
+                    st.success(f"✅ {len(similar_products)}개의 유사 상품을 찾았습니다!")
+                    st.success(f"📁 비교 데이터가 '{danawa_filename}' 파일에 저장되었습니다.")
 
-                    # 결과 미리보기
                     st.subheader("📊 발견된 유사 상품들")
                     for idx, product in enumerate(similar_products):
                         with st.expander(f"상품 {idx+1}: {product['prod_name']}"):
@@ -485,29 +526,35 @@ def render():
                 else:
                     st.error("유사 상품을 찾을 수 없습니다.")
 
-        if st.button("이전 단계로"):
+        st.markdown("<div class='back-button'>", unsafe_allow_html=True)
+        if st.button("⬅ 이전 단계로"):
             st.session_state.step = 2
             st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    # Step 4: 완료 및 다음 단계
     elif st.session_state.step == 4:
-        st.subheader("✅ 4단계: 분석 완료")
+        st.markdown("""<h2 style='color:#3456d5; margin-bottom: 1rem;'>✅ 4단계: 분석 완료</h2>""", unsafe_allow_html=True)
 
-        st.success("모든 데이터 수집이 완료되었습니다!")
-        st.write("- 원본 상품의 용량별 옵션 수집 완료")
-        st.write("- 선택된 상품 기준 유사 상품 수집 완료")
-        st.write("- 영양성분 및 가격 정보 수집 완료")
+        st.success("모든 데이터 수집이 완료되었습니다! 🎉")
+        st.markdown("""
+            <ul style='font-size:18px; line-height:1.6em;'>
+                <li>📦 원본 상품의 용량별 옵션 수집 완료</li>
+                <li>🔍 선택된 상품 기준 유사 상품 수집 완료</li>
+                <li>📊 영양성분 및 가격 정보 수집 완료</li>
+            </ul>
+        """, unsafe_allow_html=True)
 
+        st.markdown("<div class='footer-buttons'>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("처음부터 다시"):
+            if st.button("🔄 처음부터 다시"):
                 st.session_state.step = 1
                 st.session_state.original_products = None
                 st.session_state.selected_product = None
                 st.session_state.similar_products = None
                 st.rerun()
-
         with col2:
-            if st.button("결과 분석으로 이동"):
+            if st.button("📈 결과 분석으로 이동"):
                 st.session_state.page = "result"
                 st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)

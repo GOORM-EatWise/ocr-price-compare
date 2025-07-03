@@ -1,0 +1,23 @@
+{
+  "input_product_info": {
+    "product_name": "열대과일 모음",
+    "company_name": "미론우유",
+    "product_type": "음료",
+    "search_keyword": "열대과일 모음"
+  },
+  "extracted_products": [
+    {
+      "prod_name": "열대과일 모음",
+      "product_category": "음료",
+      "brand": "",
+      "search_keyword": "열대과일 모음",
+      "original_item": {
+        "product_name": "열대과일 모음",
+        "company_name": "미론우유",
+        "product_type": "음료",
+        "search_keyword": "열대과일 모음"
+      }
+    }
+  ],
+  "timestamp": "2025-07-03 09:28:35"
+}

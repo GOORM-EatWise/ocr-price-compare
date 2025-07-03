@@ -93,3 +93,4 @@ def get_product_info_from_ocr(ocr_text_list, save_path='my-app/data/llm_info.jso
             json.dump(data_obj, f, ensure_ascii=False, indent=2)
 
         return data_obj
+

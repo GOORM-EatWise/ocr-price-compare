@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 from paddleocr import PaddleOCR, draw_ocr
-
 def run_ocr(img: np.array, font_path: str, save_json: str = None, save_annotated: str = None):
     """
     - img_path: 입력 이미지
@@ -54,3 +53,4 @@ def run_ocr(img: np.array, font_path: str, save_json: str = None, save_annotated
         Image.fromarray(annotated).save(save_annotated)
 
     return ocr_data, annotated
+

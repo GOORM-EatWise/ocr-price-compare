@@ -3,7 +3,6 @@
 
 # python virtual environment
 .venv/
-
 # pycache
 *.pyc
 __pycache__/
@@ -11,7 +10,6 @@ __pycache__/
 #keys
 db/__MACOSX/
 db/*.json
-
 # metadata in macOS
 .DS_Store
 

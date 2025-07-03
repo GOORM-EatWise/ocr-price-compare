@@ -250,15 +250,14 @@ ocr-price-compare/
 > [시연 영상 보러가기](https://www.youtube.com/shorts/AbGvId-CgKM)
 
 ---
-
 # 6. 팀 소개
 
-| 이름  | 역할           | 연락처                                                     |
-| --- | ------------ | ------------------------------------------------------- |
-| 김지웅 | 팀장·UI/UX·기획  | [nomeanness12@naver.com](mailto:nomeanness12@naver.com)   |
-| 강요셉 | 데이터 수집·크롤링   | [hwankkot@outlook.com](mailto:hwankkot@outlook.com) |
-| 안소희 | AI OCR 모델 개발 | [soheean1370@gmail.com](soheean1370@gmail.com)     |
-| 김수언 | 시각화, 인사이트·리포트     | [sueon1989@gmail.com](mailto:sueon1989@gmail.com)   |
+| 김지웅 | 강요셉 | 김수언 | 안소희 |
+|:-------:|:-------:|:-------:|:-------:|
+|<img width="100px" alt="김지웅" src="https://github.com/user-attachments/assets/dc856238-7b08-4e09-af0a-98cf1e134514" /> | <img width="100px" alt="강요셉" src="https://github.com/user-attachments/assets/829e6fd5-edb9-410f-bbdb-5138093dbb4b" /> | <img width="100px" alt="김수언" src="https://github.com/user-attachments/assets/19be19d3-c9ee-4d9d-8501-a308c7f5ce38" /> |<img width="100px" alt="안소희" src="https://github.com/user-attachments/assets/e2f62b79-4a5e-4247-be7e-62b347dee814" /> |
+| nomeanness12@naver.com | hwankkot@outlook.com | sueon1989@gmail.com |soheean1370@gmail.com |
+|  팀장·UI/UX·기획 | 데이터 수집·크롤링 | 시각화, 인사이트·리포트 | AI OCR 모델 개발 |
+
 
 ---
 

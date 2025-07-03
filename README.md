@@ -242,7 +242,7 @@ ocr-price-compare/
 
 # 5. 소개 및 시연 영상
 
-> [시연 영상 보러가기](https://youtu.be/2g-vNY3k8fw)
+> [시연 영상 보러가기]([https://youtu.be/2g-vNY3k8fw](https://www.youtube.com/shorts/AbGvId-CgKM))
 
 ---
 

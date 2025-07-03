@@ -505,5 +505,6 @@ def render():
     
     with col3:
         if st.button("🏠 메인으로"):
+            st.session_state.clear()
             st.session_state.page = 'main_page'
             st.rerun()
